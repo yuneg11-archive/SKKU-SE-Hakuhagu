@@ -1,0 +1,11 @@
+{
+  "name": "hakuhagu",
+  "version": "1.0.0",
+  "description": "SKKU SE Fall 2019 Team 3",
+  "main": "handler.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "hakuhagu",
+  "license": "MIT"
+}
