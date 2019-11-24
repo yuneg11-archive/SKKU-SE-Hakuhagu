@@ -42,12 +42,12 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  test:
+    handler: handler.test
     events:
       - http:
-          path: hello
-          method: get
+          path: test
+          method: post
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
