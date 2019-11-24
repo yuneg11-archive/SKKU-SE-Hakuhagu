@@ -1,46 +1,34 @@
 'use strict';
 
-module.exports.test = async event => {
+const parser = require("./parser");
+const builder = require("./builder");
+
+module.exports.test = async (event) => {
+  const body = parser.getBody(event);
+  const userId = parser.getUserId(event);
+  const message = parser.getMessage(event);
+  const parameters = parser.getParameters(event);
+  const parameterKeys = Object.keys(parameters);
+  
+  console.log(JSON.stringify(body, null, 2));
+
+  const imageUrl = "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg";
+  const listItems = [builder.getListItem(userId, "userId"),
+                     builder.getListItem(message, "message")];
+  if (parameterKeys.length > 0)
+    listItems.push(builder.getListItem(parameters[parameterKeys[0]].origin, parameterKeys[0]));
+  if (parameterKeys.length > 1)
+    listItems.push(builder.getListItem(parameters[parameterKeys[1]].origin, parameterKeys[1]));
+  if (parameterKeys.length > 2)
+    listItems.push(builder.getListItem(parameters[parameterKeys[2]].origin, parameterKeys[2]));
+  const buttons = [builder.getButton("테스트 메시지", "message", "테스트 입니다.")];
+  const listCard = builder.getListCard("요청 메아리", imageUrl, listItems, buttons);
+  const response = builder.buildResponse("2.0", [listCard]);
+
+  console.log(response);
+
   return {
     statusCode: 200,
-    body: JSON.stringify(
-      {
-        "version": "2.0",
-        "template": {
-          "outputs": [
-            {
-              "basicCard": {
-                "title": "보물상자",
-                "description": "보물상자 안에는 뭐가 있을까",
-                "thumbnail": {
-                  "imageUrl": "http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg"
-                },
-                "profile": {
-                  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4BJ9LU4Ikr_EvZLmijfcjzQKMRCJ2bO3A8SVKNuQ78zu2KOqM",
-                  "nickname": "보물상자"
-                },
-                "social": {
-                  "like": 1238,
-                  "comment": 8,
-                  "share": 780
-                },
-                "buttons": [
-                  {
-                    "action": "message",
-                    "label": "열어보기",
-                    "messageText": "짜잔! 우리가 찾던 보물입니다"
-                  },
-                  {
-                    "action":  "webLink",
-                    "label": "구경하기",
-                    "webLinkUrl": "https://e.kakao.com/t/hello-ryan"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }, null, 2
-    ),
+    body: response
   };
 };
