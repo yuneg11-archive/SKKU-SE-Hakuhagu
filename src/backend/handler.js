@@ -2,6 +2,18 @@
 
 const parser = require("./parser");
 const builder = require("./builder");
+const database = require("./database");
+const authenticator = require("./authenticator");
+
+const predefinedResponse = {
+  userAuthenticateFail: {
+    statusCode: 200,
+    body: JSON.stringify({
+      version: "2.0",
+      template: { outputs: [ { simpleText: { text: "사용자 인증에 실패했습니다." } } ] }
+    })
+  }
+}
 
 module.exports.test = async (event) => {
   const body = parser.getBody(event);
@@ -9,7 +21,12 @@ module.exports.test = async (event) => {
   const message = parser.getMessage(event);
   const parameters = parser.getParameters(event);
   const parameterKeys = Object.keys(parameters);
-  
+
+  if (authenticator.authenticateUser(userId) == false) {
+    console.log("Fail user authentication");
+    return predefinedResponse.userAuthenticateFail;
+  }
+
   console.log(JSON.stringify(body, null, 2));
 
   const imageUrl = "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg";

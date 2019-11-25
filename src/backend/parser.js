@@ -1,3 +1,5 @@
+'use strict';
+
 const getBody = (event) => {
   return ("body" in event ? JSON.parse(event.body) : event);
 }

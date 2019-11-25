@@ -1,3 +1,5 @@
+'use strict';
+
 const buildResponse = (version, outputs) => {
   return JSON.stringify({
     version: version,
@@ -56,7 +58,7 @@ const getSimpleText = (text) => {
   };
 }
 
-const getSimpleImage = (imageUrl, altText = "") => {
+const getSimpleImage = (imageUrl, altText="") => {
   return {
     simpleImage: {
         imageUrl: imageUrl,
@@ -65,7 +67,7 @@ const getSimpleImage = (imageUrl, altText = "") => {
   };
 }
 
-const getBasicCard = (title, description, thumbnail, buttons = []) => {
+const getBasicCard = (title, description, thumbnail, buttons=[]) => {
   return {
     basicCard: {
       title: title,
