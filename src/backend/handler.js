@@ -1,9 +1,10 @@
 'use strict';
 
-const parser = require("./parser");
-const builder = require("./builder");
-const database = require("./database");
-const authenticator = require("./authenticator");
+const parser = require("./utils/parser");
+const builder = require("./utils/builder");
+const database = require("./utils/database");
+const authenticator = require("./utils/authenticator");
+const responseList = require("./responses/list");
 
 const predefinedResponse = {
   userAuthenticateFail: {
@@ -14,6 +15,18 @@ const predefinedResponse = {
     })
   }
 }
+
+module.exports.welcome = async (event) => {
+  const userId = parser.getUserId(event);
+
+  const response = responseList.welcome(userId);
+  console.log(response);
+
+  return {
+    statusCode: 200,
+    body: response
+  };
+};
 
 module.exports.test = async (event) => {
   const body = parser.getBody(event);
@@ -40,7 +53,7 @@ module.exports.test = async (event) => {
     listItems.push(builder.getListItem(parameters[parameterKeys[2]].origin, parameterKeys[2]));
   const buttons = [builder.getButton("테스트 메시지", "message", "테스트 입니다.")];
   const listCard = builder.getListCard("요청 메아리", imageUrl, listItems, buttons);
-  const response = builder.buildResponse("2.0", [listCard]);
+  const response = builder.buildResponse([listCard]);
 
   console.log(response);
 

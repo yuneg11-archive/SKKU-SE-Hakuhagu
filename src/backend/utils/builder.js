@@ -1,8 +1,8 @@
 'use strict';
 
-const buildResponse = (version, outputs) => {
+const buildResponse = (outputs) => {
   return JSON.stringify({
-    version: version,
+    version: "2.0",
     template: {
       outputs: outputs
     }
@@ -34,9 +34,7 @@ const getButton = (label, action, data, blockId=undefined, extra=undefined) => {
 
 const getThumbnail = (imageUrl) => {
   return {
-    thumbnail: {
-      imageUrl: imageUrl
-    }
+    imageUrl: imageUrl
   };
 }
 
@@ -67,14 +65,18 @@ const getSimpleImage = (imageUrl, altText="") => {
   };
 }
 
+const getBasicCardBody = (title, description, thumbnail, buttons=[]) => {
+  return {
+    title: title,
+    description: description,
+    thumbnail: thumbnail,
+    buttons: buttons
+  };
+}
+
 const getBasicCard = (title, description, thumbnail, buttons=[]) => {
   return {
-    basicCard: {
-      title: title,
-      description: description,
-      thumbnail: thumbnail,
-      buttons: buttons
-    }
+    basicCard: getBasicCardBody(title, description, thumbnail, buttons)
   };
 }
 
@@ -91,6 +93,21 @@ const getListCard = (title, titleImageUrl, listItems, buttons=[]) => {
   };
 }
 
+const getCarousel = (type, cards) => {
+  const cardTypes = ["basicCard", "commerceCard"];
+
+  if (cardTypes.includes(type)) {
+    return {
+      carousel: {
+        type: type,
+        items: cards
+      }
+    };
+  } else {
+    throw "card type error";
+  }
+}
+
 module.exports = {
   buildResponse,
   getButton,
@@ -98,6 +115,8 @@ module.exports = {
   getListItem,
   getSimpleText,
   getSimpleImage,
+  getBasicCardBody,
   getBasicCard,
-  getListCard
+  getListCard,
+  getCarousel
 }

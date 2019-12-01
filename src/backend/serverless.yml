@@ -42,6 +42,12 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
+  welcome:
+    handler: handler.welcome
+    events:
+      - http:
+          path: welcome
+          method: post
   test:
     handler: handler.test
     events:
