@@ -1,12 +1,15 @@
 'use strict';
 
 const buildResponse = (outputs) => {
-  return JSON.stringify({
-    version: "2.0",
-    template: {
-      outputs: outputs
-    }
-  });
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      version: "2.0",
+      template: {
+        outputs: outputs
+      }
+    })
+  };
 }
 
 const getButton = (label, action, data, blockId=undefined, extra=undefined) => {

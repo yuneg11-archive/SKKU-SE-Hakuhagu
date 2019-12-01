@@ -2,7 +2,7 @@
 
 // Placeholder
 const getUserExistence = (userId) => {
-  const random = Math.floor(Math.random() * 5);
+  const random = Math.floor(Math.random() * 3);
   if (random == 0) {
     return false;
   } else {

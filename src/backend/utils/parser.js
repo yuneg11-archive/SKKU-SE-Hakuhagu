@@ -16,9 +16,14 @@ const getParameters = (event) => {
   return getBody(event).action.detailParams;
 }
 
+const getBlockId = (event) => {
+  return getBody(event).userRequest.block.id;
+}
+
 module.exports = {
   getBody,
   getUserId,
   getMessage,
-  getParameters
+  getParameters,
+  getBlockId
 }
