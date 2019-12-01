@@ -1,16 +1,13 @@
 'use strict';
 
-const builder = require("../utils/builder");
+const responseTemplate = require("../responses/template");
 
 const registration = (event) => {
   // Construct registration guide
 
   // Todo
 
-  const card = builder.getSimpleText("회원가입 테스트");
-
-  // Build response
-  return builder.buildResponse([card]);
+  return responseTemplate.userRegistrationSuccess("임시닉네임");
 }
 
 module.exports = {

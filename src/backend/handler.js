@@ -22,7 +22,7 @@ const selectResponseWithAuth = (event, response) => {
 }
 
 const getAuthFailResponse = () => {
-  return responseTemplate.registration();
+  return responseTemplate.userRegistration();
 }
 
 // Verification
@@ -48,10 +48,10 @@ module.exports.welcome = async (event) => {
   }
 };
 
-module.exports.registration = async (event) => {
+module.exports.userRegistration = async (event) => {
   if (checkAuth(event) == true) { // Avoid regist again
     console.log("Registration fail");
-    return responseTemplate.registrationFail("이미 가입되어 있습니다.");
+    return responseTemplate.userRegistrationFail("이미 가입되어 있습니다.");
   } else {
     const response = userHandler.registration(event);
     console.log(response);

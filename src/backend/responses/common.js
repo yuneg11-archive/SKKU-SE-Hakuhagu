@@ -27,26 +27,3 @@ module.exports.welcome = () => {
   // Build response
   return builder.buildResponse([builder.getCarousel("basicCard", [buyerCardBody, sellerCardBody, userInfoCardBody])]);
 };
-
-module.exports.registration = () => {
-  // Construct registration guide
-  const guideThumbnail = builder.getThumbnail("http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg"); // Temp url
-  const guideText = "대학생 중고 거래 서비스, 학우하구입니다!\n회원 가입을 원하시면 회원 가입 버튼을 눌러주세요.";
-  const guideRegistrationButton = builder.getButton("회원 가입", "block", "회원 가입", "5dc50c568192ac0001c5d1f0"); // Temp action
-  const guideCard = builder.getBasicCard("", guideText, guideThumbnail, [guideRegistrationButton]);
-
-  // Build response
-  return builder.buildResponse([guideCard]);
-};
-
-module.exports.registrationFail = (errorMessage) => {
-  // Construct registration guide
-  const guideThumbnail = builder.getThumbnail("http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg"); // Temp url
-  const guideTitle= "회원 가입 실패";
-  const guideDescription = errorMessage;
-  const guideMainMenuButton = builder.getButton("처음으로", "block", "처음으로", "5dc91057ffa748000141163a");
-  const guideCard = builder.getBasicCard(guideTitle, guideDescription, guideThumbnail, [guideMainMenuButton]);
-
-  // Build response
-  return builder.buildResponse([guideCard]);
-};

@@ -1,9 +1,11 @@
 'use strict';
 
-const mainResponse = require("./common");
+const commonResponse = require("./common");
+const userResponse = require("./user");
 
 module.exports = {
-  welcome: mainResponse.welcome,
-  registration: mainResponse.registration,
-  registrationFail: mainResponse.registrationFail,
+  welcome: commonResponse.welcome,
+  userRegistration: userResponse.userRegistration,
+  userRegistrationSuccess: userResponse.userRegistrationSuccess,
+  userRegistrationFail: userResponse.userRegistrationFail,
 };

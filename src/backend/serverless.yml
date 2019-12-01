@@ -48,11 +48,11 @@ functions:
       - http:
           path: welcome
           method: post
-  registration:
-    handler: handler.registration
+  userRegistration:
+    handler: handler.userRegistration
     events:
       - http:
-          path: registration
+          path: user/registration
           method: post
   test:
     handler: handler.test
