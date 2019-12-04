@@ -21,6 +21,12 @@ functions:
       - http:
           path: user/registration
           method: post
+  itemRegistration:
+    handler: handler.itemRegistration
+    events:
+      - http:
+          path: item/registration
+          method: post
   test:
     handler: handler.test
     events:

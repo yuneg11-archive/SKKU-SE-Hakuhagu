@@ -8,6 +8,8 @@ module.exports = {
     userRegistrationThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
     userRegistrationSuccessThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
     userRegistrationFailThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
+    itemRegistrationSuccessThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
+    itemRegistrationFailThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
     welcomeBlockId: "5dc91057ffa748000141163a",
     registrationBlockId: "5dc50c568192ac0001c5d1f0",
     buyerSearchTextBlockId: "5de3d514ffa7480001988106",

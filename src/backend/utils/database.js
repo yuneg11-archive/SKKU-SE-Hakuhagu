@@ -6,6 +6,8 @@ const checkUserAuth = async (userId) => {
   // Todo: Check user is exist and authenticated
   //       True = (userId is in User table) and (User[userId].school_email_auth is true)
   //       False = Otherwise
+  return true;
+  
   const random = Math.floor(Math.random() * 2);
   if (random == 0) {
     return false;

@@ -8,9 +8,9 @@ const responseTemplate = require("../responses/template");
 const registration = async (event) => {
   const userId = parser.getUserId(event);
   const parameters = parser.getParameters(event);
-  const nickname = parameters["nickname"].value;
-  const school_name = parameters["school_name"].value;
-  const school_mail = parameters["school_mail"].value;
+  const nickname = parameters["nickname"].origin;
+  const school_name = parameters["school_name"].origin;
+  const school_mail = parameters["school_mail"].origin;
   const timetable_image = parameters["timetable_image"].origin;
   const timetable = ""; // Todo: Process timetable_image and get JSON data
 

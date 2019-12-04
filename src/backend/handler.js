@@ -6,6 +6,7 @@ const database = require("./utils/database");
 const authenticator = require("./utils/authenticator");
 const responseTemplate = require("./responses/template");
 const userHandler = require("./handlers/user");
+const itemHandler = require("./handlers/item");
 
 const checkAuth = async (event) => {
   const userId = parser.getUserId(event);
@@ -50,7 +51,14 @@ module.exports.userRegistration = async (event) => {
 };
 
 module.exports.itemRegistration = async (event) => {
-
+  if (await checkAuth(event) == true) {
+    const response = await itemHandler.registration(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
 };
 
 module.exports.test = async (event) => {
