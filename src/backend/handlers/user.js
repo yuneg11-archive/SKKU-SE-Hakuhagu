@@ -19,7 +19,7 @@ const registration = async (event) => {
   } else {
     const mail_success = await authenticator.sendAuthenticateMail(userId, school_mail);
     if (mail_success == true) {
-      const result = database.registNewUser(userId, nickname, school_name, school_mail, timetable);
+      const result = await database.registNewUser(userId, nickname, school_name, school_mail, timetable);
       if (result.success == true) {
         return responseTemplate.userRegistrationSuccess(nickname);
       } else {

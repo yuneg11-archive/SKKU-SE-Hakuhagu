@@ -1,7 +1,7 @@
 'use strict';
 
 const builder = require("../utils/builder");
-const resource = require("./resource");
+const resource = require("../utils/resource");
 
 module.exports.welcome = () => {
   // Construct buyer card

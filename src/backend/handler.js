@@ -44,8 +44,7 @@ module.exports.userRegistration = async (event) => {
     console.log("Registration fail");
     return responseTemplate.userRegistrationFail("이미 가입되어 있습니다.");
   } else {
-    const response = userHandler.registration(event);
-    console.log(response);
+    const response = await userHandler.registration(event);
     return response;
   }
 };

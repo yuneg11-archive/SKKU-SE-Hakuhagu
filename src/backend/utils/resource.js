@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+    mailAuthenticateEndpoint: "https://hk8fwoi2r9.execute-api.ap-northeast-1.amazonaws.com/dev/authenticate",
     buyerThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
     sellerThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
     userInfoThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
