@@ -15,7 +15,7 @@ const checkUserAuth = (userId) => {
 };
 
 // Placeholder
-const registerNewUser = (userId, nickname, school_name, school_email, timetable) => {
+const registNewUser = (userId, nickname, school_name, school_email, timetable) => {
   // userId: string, nickname: string, school_name: string, school_email: string, timetable: JSON object
   // Todo: Create new user with scheme { userId: string,
   //                                     nickname: string,
@@ -59,6 +59,6 @@ const getUser = (userId) => {
 
 module.exports = {
   checkUserAuth,
-  registerNewUser,
+  registNewUser,
   getUser
 }
