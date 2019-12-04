@@ -17,12 +17,16 @@ const registration = (event) => {
   if (authenticator.authenticateUser(userId) == true) {
     return responseTemplate.userRegistrationFail("이미 등록된 사용자입니다.");
   } else {
-    const result = database.registNewUser(userId, nickname, school_name, school_mail, timetable);
-    if (result.success == true) {
-      // Todo: Send authentication mail
-      return responseTemplate.userRegistrationSuccess(nickname);
+    const mail_success = authenticator.sendAuthenticateMail(userId, school_mail);
+    if (mail_success == true) {
+      const result = database.registNewUser(userId, nickname, school_name, school_mail, timetable);
+      if (result.success == true) {
+        return responseTemplate.userRegistrationSuccess(nickname);
+      } else {
+        return responseTemplate.userRegistrationFail(result.message);
+      }
     } else {
-      return responseTemplate.userRegistrationFail(result.message);
+      return responseTemplate.userRegistrationFail("인증 메일 발송에 실패하였습니다.");
     }
   }
 }

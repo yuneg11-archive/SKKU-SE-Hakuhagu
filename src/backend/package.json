@@ -9,10 +9,7 @@
   "author": "hakuhagu",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.584.0",
-    "serverless": "^1.58.0"
+    "aws-sdk": "^2.584.0"
   },
-  "devDependencies": {
-    "serverless-offline": "^5.12.1"
-  }
+  "devDependencies": {}
 }

@@ -27,6 +27,3 @@ functions:
       - http:
           path: test
           method: post
-
-plugins:
-  - serverless-offline
