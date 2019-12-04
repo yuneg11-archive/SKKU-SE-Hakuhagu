@@ -12,15 +12,6 @@ const checkAuth = (event) => {
   return authenticator.authenticateUser(userId);
 }
 
-const selectResponseWithAuth = (event, response) => {
-  const userId = parser.getUserId(event);
-  if (authenticator.authenticateUser(userId)) {
-    return response;
-  } else {
-    return responseTemplate.registration();
-  }
-}
-
 const getAuthFailResponse = () => {
   return responseTemplate.userRegistration();
 }
@@ -57,6 +48,10 @@ module.exports.userRegistration = async (event) => {
     console.log(response);
     return response;
   }
+};
+
+module.exports.itemRegistration = async (event) => {
+
 };
 
 module.exports.test = async (event) => {
