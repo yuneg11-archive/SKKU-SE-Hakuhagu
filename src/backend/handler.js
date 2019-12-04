@@ -7,7 +7,7 @@ const authenticator = require("./utils/authenticator");
 const responseTemplate = require("./responses/template");
 const userHandler = require("./handlers/user");
 
-const checkAuth = (event) => {
+const checkAuth = async (event) => {
   const userId = parser.getUserId(event);
   return authenticator.authenticateUser(userId);
 }
@@ -29,18 +29,18 @@ module.exports.verifyEmail = async (event) => {
 // Skill
 
 module.exports.welcome = async (event) => {
-  if (checkAuth(event) == false) {
-    console.log("Auth fail");
-    return getAuthFailResponse();
-  } else {
+  if (await checkAuth(event) == true) {
     const response = responseTemplate.welcome();
     console.log(response);
     return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
   }
 };
 
 module.exports.userRegistration = async (event) => {
-  if (checkAuth(event) == true) { // Avoid regist again
+  if (await checkAuth(event) == true) { // Avoid regist again
     console.log("Registration fail");
     return responseTemplate.userRegistrationFail("이미 가입되어 있습니다.");
   } else {
@@ -62,7 +62,7 @@ module.exports.test = async (event) => {
   const parameters = parser.getParameters(event);
   const parameterKeys = Object.keys(parameters);
 
-  if (checkAuth(event) == false) {
+  if (await checkAuth(event) == false) {
     console.log("Fail user authentication");
     return getAuthFailResponse();
   }

@@ -49,7 +49,7 @@
     "params": {
       "nickname": "test_nickname",
       "school_name": "성균관대학교",
-      "school_mail": "testmail@skku.edu",
+      "school_mail": "yuneg11@gmail.com",
       "timetable_image": "{\"privacyAgreement\":\"Y\",\"imageQuantity\":\"1\",\"secureUrls\":\"List(http://secure.kakaocdn.net/dna/c4iABg/K6aA06KJ2C/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575445217&allow_ip=&allow_referer=&signature=vsp7am3PzYW9yEM24crIVkFxwuk%3D)\",\"expire\":\"1970-01-19T14:37:25+0900\"}"
     },
     "id": "5dda19bf8192ac00011a2918",
@@ -65,8 +65,8 @@
         "groupName": ""
       },
       "school_mail": {
-        "origin": "testmail@skku.edu",
-        "value": "testmail@skku.edu",
+        "origin": "yuneg11@gmail.com",
+        "value": "yuneg11@gmail.com",
         "groupName": ""
       },
       "timetable_image": {
