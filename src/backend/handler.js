@@ -50,6 +50,17 @@ module.exports.userRegistration = async (event) => {
   }
 };
 
+module.exports.userInformation = async (event) => {
+  if (await checkAuth(event) == true) {
+    const response = await userHandler.information(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
+};
+
 module.exports.itemRegistration = async (event) => {
   if (await checkAuth(event) == true) {
     const response = await itemHandler.registration(event);
