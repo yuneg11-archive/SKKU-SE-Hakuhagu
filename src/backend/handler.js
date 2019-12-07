@@ -50,6 +50,11 @@ module.exports.userRegistration = async (event) => {
   }
 };
 
+module.exports.userAuthentication = async (event) => {
+  const response = await userHandler.authentication(event);
+  return response;
+};
+
 module.exports.userInformation = async (event) => {
   if (await checkAuth(event) == true) {
     const response = await userHandler.information(event);

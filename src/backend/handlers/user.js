@@ -31,11 +31,26 @@ const registration = async (event) => {
   }
 }
 
+const authentication = (event) => {
+  const keys = parser.getKeys(event);
+  const userId = keys["userId"];
+  const token = keys["token"];
+
+  const success = await authenticator.authenticateMail(userId, token);
+  if (success == false) {
+    return responseTemplate.userAuthenticationSuccess();
+  } else {
+    return responseTemplate.userAuthenticationFail();
+  }
+  return
+};
+
 const information = async (event) => {
   // Todo: Get user information from database and build information card, then send
 };
 
 module.exports = {
-    registration,
-    information
+  registration,
+  authentication,
+  information
 };

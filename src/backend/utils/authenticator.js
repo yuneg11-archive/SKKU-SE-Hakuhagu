@@ -40,6 +40,15 @@ const authenticateUser = async (userId) => {
   return await database.checkUserAuth(userId);
 };
 
+const authenticateMail = async (userId, token) => {
+  const result = await database.authPendingAuthentication(userId, token);
+  if (result.success == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 const sendAuthenticateMail = async (userId, userMail) => {
   const token = generateToken();
   const result = await database.registPendingAuthentication(userId, userMail, token);
@@ -70,5 +79,6 @@ const sendAuthenticateMail = async (userId, userMail) => {
 
 module.exports = {
   authenticateUser,
+  authenticateMail,
   sendAuthenticateMail
 }

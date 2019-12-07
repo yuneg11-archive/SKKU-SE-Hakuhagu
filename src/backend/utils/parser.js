@@ -20,10 +20,15 @@ const getBlockId = (event) => {
   return getBody(event).userRequest.block.id;
 }
 
+const getKeys = (event) => {
+  return event.queryStringParameters;
+}
+
 module.exports = {
   getBody,
   getUserId,
   getMessage,
   getParameters,
-  getBlockId
+  getBlockId,
+  getKeys
 }

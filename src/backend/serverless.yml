@@ -21,6 +21,12 @@ functions:
       - http:
           path: user/registration
           method: post
+  userAuthentication:
+    handler: handler.userAuthentication
+    events:
+      - http:
+          path: user/authentication
+          method: get
   userInformation:
     handler: handler.userInformation
     events:

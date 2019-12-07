@@ -119,6 +119,16 @@ const registPendingAuthentication = async (userId, school_mail, token) => {
   };
 };
 
+const authPendingAuthentication = async (userId, token) => {
+  // userId: string, token: string
+  // Todo: Delete pending mail authentication with userId and token,
+  //       then change user[userId].school_mail_auth to true
+  return {
+    success: true, // success: true, fail: false
+    message: "Fill error message if success == false" // success: "", fail: error message
+  };
+};
+
 // Placeholder
 const registNewUser = async (userId, nickname, school_name, school_mail, timetable) => {
   // userId: string, nickname: string, school_name: string, school_mail: string, timetable: JSON object
@@ -215,6 +225,7 @@ module.exports = {
   uploadImage,
   checkUserAuth,
   registPendingAuthentication,
+  authPendingAuthentication,
   registNewUser,
   getUser,
   registNewItem,
