@@ -31,7 +31,7 @@ const registration = async (event) => {
   }
 }
 
-const authentication = (event) => {
+const authentication = async (event) => {
   const keys = parser.getKeys(event);
   const userId = keys["userId"];
   const token = keys["token"];

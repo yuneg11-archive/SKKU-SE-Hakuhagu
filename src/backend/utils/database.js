@@ -7,10 +7,10 @@ const fs = require("fs");
 const request = require("sync-request");
 
 const aws = require("aws-sdk");
-aws.config.update({region: resource.awsS3Region});
 const s3 = new aws.S3({
   accessKeyId: credential.awsAccessKeyId,
   secretAccessKey: credential.awsSecretAccessKey,
+  region: resource.awsS3Region
 });
 
 const mysql = require("mysql");
@@ -31,45 +31,60 @@ const query = async (sql, params) => {
 };
 
 
-const uploadImage = async (directory, name, location, type="url") => {
-  if (type == "url") {
-    fs.writeFileSync("/tmp/tmp.jpg", request("GET", location).getBody());
-    location = "/tmp/tmp.jpg";
+const uploadImages = async (directory, locations) => {
+  const results = [];
+  for (var key in locations) {
+    var location = locations[key];
+    const filename = location.substring(location.lastIndexOf('/') + 1, location.length) || location;
+    if (location.includes("http")) {
+      fs.writeFileSync("/tmp/" + filename, request("GET", location).getBody());
+      location = "/tmp/" + filename;
+    }
+
+    const image = {
+      Bucket: resource.awsS3Name,
+      Key: directory + key + "-" + filename,
+      ACL: "public-read",
+      Body: fs.createReadStream(location)
+    };
+
+    const result = await new Promise((resolve, reject) => {
+      s3.upload(image, (err, data) => {
+        if (err) {
+          resolve({
+            success: false,
+            location: "예상치 못한 오류가 발생했습니다."
+          });
+        } else {
+          resolve({
+            success: true,
+            location: data.Location
+          });
+        }
+      });
+    });
+
+    results.push(result);
   }
+  return results;
 
-  const image = {
-    Bucket: resource.awsS3Name,
-    Key: directory + name,
-    ACL: "public-read",
-    Body: fs.createReadStream(location)
-  };
 
-  // return await new Promise((resolve, reject) => {
-  //   s3.createBucket({
-  //     Bucket: resource.awsS3Name,
-  //     CreateBucketConfiguration: {
-  //       LocationConstraint: resource.awsS3Region
+
+  // const r1 = await new Promise((resolve, reject) => {
+  //   s3.listBuckets(function(err, data) {
+  //     if (err) {
+  //       console.log("Error in", err);
+  //       reject(err)
+  //     } else {
+  //       console.log("Success", data.Buckets);
+  //       resolve(data)
   //     }
-  //   }, (err, data) => {
-  //     if (err) console.log(err, err.stack);
-  //     else console.log('Bucket Created Successfully', data.Location);
-  //     resolve("done");
   //   });
   // });
+  // console.log(r1);
+  // return r1;
 
-  return await new Promise((resolve, reject) => {
-    s3.listBuckets(function(err, data) {
-      if (err) {
-        console.log("Error in", err);
-        reject()
-      } else {
-        console.log("Success", data.Buckets);
-        resolve()
-      }
-    });
-  });
-
-  return await new Promise((resolve, reject) => {
+  const result = await new Promise((resolve, reject) => {
     s3.upload(image, (err, data) => {
       if (err) {
         // return {
@@ -83,11 +98,12 @@ const uploadImage = async (directory, name, location, type="url") => {
         //   success: true,
         //   location: data.Location
         // };
-        console.log("success");
-        resolve("success");
+        console.log(data);
+        resolve(data);
       }
     });
   });
+  return result;
 };
 
 
@@ -222,7 +238,7 @@ const getItem = async (itemId) => {
 };
 
 module.exports = {
-  uploadImage,
+  uploadImages,
   checkUserAuth,
   registPendingAuthentication,
   authPendingAuthentication,

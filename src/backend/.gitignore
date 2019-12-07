@@ -5,6 +5,8 @@ jspm_packages
 # Serverless directories
 .serverless
 .build
+serverless_sdk
+s_*
 
 # Credentials
 utils/credential.js

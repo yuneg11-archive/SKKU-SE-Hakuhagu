@@ -41,9 +41,9 @@ module.exports.userRegistrationFail = (errorMessage) => {
 };
 
 module.exports.userAuthenticationSuccess = () => {
-  return "메일 인증에 성공하였습니다.";
+  return builder.buildAWSResponse("메일 인증에 성공하였습니다.");
 };
 
 module.exports.userAuthenticationFail = () => {
-  return "메일 인증에 실패하였습니다.";
+  return builder.buildAWSResponse("메일 인증에 실패하였습니다.");
 };

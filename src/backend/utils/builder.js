@@ -12,6 +12,13 @@ const buildResponse = (outputs) => {
   };
 }
 
+const buildAWSResponse = (body) => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify(body)
+  };
+}
+
 const getButton = (label, action, data, blockId=undefined, extra=undefined) => {
   const actionTypes = ["webLink", "osLink", "message", "phone", "share", "block"];
 
@@ -113,6 +120,7 @@ const getCarousel = (type, cards) => {
 
 module.exports = {
   buildResponse,
+  buildAWSResponse,
   getButton,
   getThumbnail,
   getListItem,

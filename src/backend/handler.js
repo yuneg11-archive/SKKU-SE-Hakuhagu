@@ -78,8 +78,10 @@ module.exports.itemRegistration = async (event) => {
 };
 
 module.exports.imageUploadTest = async (event) => {
-  const re = database.uploadImage("test/loc/", "test", "http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg");
-  return builder.buildResponse(re);
+  const re = await database.uploadImages("test/loc/", ["http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg",
+                                                       "https://i.ibb.co/QntzYHt/Kakao-Talk-Photo-2019-12-06-16-36-08.jpg",
+                                                       "https://i.ibb.co/jvZwwNM/Kakao-Talk-Photo-2019-12-06-16-36-12.jpg"]);
+  return builder.buildAWSResponse(re);
 };
 
 module.exports.test = async (event) => {
