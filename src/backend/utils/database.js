@@ -37,7 +37,7 @@ const checkUserAuth = async (userId) => {
             console.log(err);
             return false;
         }
-    })
+    });
   return true;
 
   const random = Math.floor(Math.random() * 2);
