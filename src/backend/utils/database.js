@@ -161,6 +161,23 @@ const registNewUser = async (userId, nickname, school_name, school_mail, timetab
 
 // Placeholder
 const getUser = async (userId) => {
+  var sql = 'SELECT * FROM user WHERE userId = ?';
+  try{
+    const pickuser = await query(sql, [userId]);
+    return {
+      userId: pickuser.userId,
+      nickname: pickuser.nickname,
+      school_name: pickuser.school_name,
+      school_mail: pickuser.school_mail,
+      school_mail_auth: 1,
+      timetable: JSON.parse(pickuser.timetable),
+      openprofile: pickuser.openprofile,
+      report_count: pickuser.report_count,
+      reliability_score: pickuser.reliability_score
+    };
+  }catch(error){
+    return false;
+  }
   // userId: string
   // Todo: Get user data of userId { userId: string,
   //       in JSON object            nickname: string,
@@ -171,17 +188,6 @@ const getUser = async (userId) => {
   //                                 openprofile: string,
   //                                 report_count: integer,
   //                                 reliability_score: integer }
-  return {
-    userId: "",
-    nickname: "",
-    school_name: "",
-    school_mail: "",
-    school_mail_auth: true,
-    timetable: JSON.parse(""),
-    openprofile: "",
-    report_count: 0,
-    reliability_score: 50
-  };
 };
 
 // Placeholder
@@ -210,15 +216,21 @@ const getItem = async (itemId) => {
   //                                 item_detail: string,
   //                      caution -> item_image: JSON (use JSON.parse()),
   //                                 item_date: date }
-  return {
-    userId: "",
-    itemId: 0,
-    item_name: "",
-    item_price: 0,
-    item_detail: "",
-    item_image: JSON.parse(""),
-    item_date: null // Please convert to some date type
-  };
+  var sql = 'SELECT * FROM itme WHERE itemId = ?';
+  try{
+    const pickitem = await query(sql, [itemId]);
+    return {
+      userId: pickitem.userId,
+      itemId: pickitem.itemId,
+      item_name: pickitem.item_name,
+      item_price: pickitem.item_price,
+      item_detail: pickitem.item_detail,
+      item_image: JSON.parse(pickitem.item_image),
+      item_date: null // Please convert to some date type
+      };
+  }catch(error){
+    return false;
+  }
 };
 
 module.exports = {
