@@ -1,4 +1,19 @@
 'use strict';
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host: "hakuhagu.czjhg6jtbyze.ap-northeast-1.rds.amazonaws.com",
+    user: "skkuse3",
+    password: "skkuse3!",
+    database: "hakuhagu",
+});
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + connection.threadId);
+});
 
 const credential = require("./credential");
 const resource = require("./resource");
@@ -98,7 +113,24 @@ const checkUserAuth = async (userId) => {
   // Todo: Check user is exist and authenticated
   //       True = (userId is in User table) and (User[userId].school_email_auth is true)
   //       False = Otherwise
-  return false;
+    var sql = 'SELECT school_mail_auth FROM user WHERE userId = ?';
+    connection.query(sql, userId, function(err, rows, fields){
+        if(!err){
+            if(rows[0] == 1){
+                console.log(userId + ' is authenticated');
+                return true;
+            }
+            else{
+                console.log(userId + ' is not exist or not authenticated');
+                return false;
+            }
+        }
+        else{
+            console.log(err);
+            return false;
+        }
+    });
+  return true;
 
   const random = Math.floor(Math.random() * 2);
   if (random == 0) {
