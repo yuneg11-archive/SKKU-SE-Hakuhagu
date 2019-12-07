@@ -1,12 +1,104 @@
 'use strict';
 
+const credential = require("./credential");
+const resource = require("./resource");
+
+const fs = require("fs");
+const request = require("sync-request");
+
+const aws = require("aws-sdk");
+aws.config.update({region: resource.awsS3Region});
+const s3 = new aws.S3({
+  accessKeyId: credential.awsAccessKeyId,
+  secretAccessKey: credential.awsSecretAccessKey,
+});
+
+const mysql = require("mysql");
+const pool = mysql.createPool({
+  host: resource.mysqlLocation,
+  user: credential.mysqlUser,
+  password: credential.mysqlPassword,
+  database: resource.mysqlName,
+});
+const query = async (sql, params) => {
+    return await new Promise((resolve, reject) => {
+        pool.query(sql, params, (error, results, fields) => {
+            if (error) reject(error);
+            else resolve(results);
+            return;
+        });
+    });
+};
+
+
+const uploadImage = async (directory, name, location, type="url") => {
+  if (type == "url") {
+    fs.writeFileSync("/tmp/tmp.jpg", request("GET", location).getBody());
+    location = "/tmp/tmp.jpg";
+  }
+
+  const image = {
+    Bucket: resource.awsS3Name,
+    Key: directory + name,
+    ACL: "public-read",
+    Body: fs.createReadStream(location)
+  };
+
+  // return await new Promise((resolve, reject) => {
+  //   s3.createBucket({
+  //     Bucket: resource.awsS3Name,
+  //     CreateBucketConfiguration: {
+  //       LocationConstraint: resource.awsS3Region
+  //     }
+  //   }, (err, data) => {
+  //     if (err) console.log(err, err.stack);
+  //     else console.log('Bucket Created Successfully', data.Location);
+  //     resolve("done");
+  //   });
+  // });
+
+  return await new Promise((resolve, reject) => {
+    s3.listBuckets(function(err, data) {
+      if (err) {
+        console.log("Error in", err);
+        reject()
+      } else {
+        console.log("Success", data.Buckets);
+        resolve()
+      }
+    });
+  });
+
+  return await new Promise((resolve, reject) => {
+    s3.upload(image, (err, data) => {
+      if (err) {
+        // return {
+        //   success: false,
+        //   location: ""
+        // };
+        console.log(err);
+        reject(err);
+      } else {
+        // return {
+        //   success: true,
+        //   location: data.Location
+        // };
+        console.log("success");
+        resolve("success");
+      }
+    });
+  });
+};
+
+
+
 // Placeholder
 const checkUserAuth = async (userId) => {
   // userId: string
   // Todo: Check user is exist and authenticated
   //       True = (userId is in User table) and (User[userId].school_email_auth is true)
   //       False = Otherwise
-  return true;
+  return false;
 
   const random = Math.floor(Math.random() * 2);
   if (random == 0) {
@@ -40,6 +132,12 @@ const registNewUser = async (userId, nickname, school_name, school_mail, timetab
   //                                     openprofile: string (Null at init),
   //                                     report_count: integer (0 at init),
   //                                     reliability_score: integer (0 at init) }
+  var sql = 'INSERT INTO user(userId,nickname, school_name, school_mail, school_mail_auth, timetable, openprofile, report_count, reliability_score)VALUES(?,?,?,?,?,?,?,?,?)';
+  var params = ['testId2','testnick2', 'skku', 'skku.edu','1','testtimetable', 'testopenprofile.com', 3, 50];
+
+  const insert = await query(sql, params);
+  console.log(insert);
+
   return {
     success: true, // success: true, fail: false
     message: "Fill error message if success == false" // success: "", fail: error message
@@ -109,6 +207,7 @@ const getItem = async (itemId) => {
 };
 
 module.exports = {
+  uploadImage,
   checkUserAuth,
   registPendingAuthentication,
   registNewUser,

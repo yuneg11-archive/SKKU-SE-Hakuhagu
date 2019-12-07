@@ -33,6 +33,12 @@ functions:
       - http:
           path: item/registration
           method: post
+  imageUploadTest:
+    handler: handler.imageUploadTest
+    events:
+      - http:
+          path: image
+          method: post
   test:
     handler: handler.test
     events:

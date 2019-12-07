@@ -52,6 +52,7 @@ const sendAuthenticateMail = async (userId, userMail) => {
     };
 
     try {
+      return true; // Todo: remove
       const result = await transporter.sendMail(mailOptions);
       console.log(result);
       if (Object.keys(result.accepted).length == 1) {

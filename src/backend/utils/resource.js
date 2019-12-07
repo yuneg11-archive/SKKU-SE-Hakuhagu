@@ -2,6 +2,11 @@
 
 module.exports = {
     mailAuthenticateEndpoint: "https://hk8fwoi2r9.execute-api.ap-northeast-1.amazonaws.com/dev/authenticate",
+    awsS3Region: "ap-norteast-2",
+    awsS3Name: "hakuhagu-store",
+    mysqlLocation: "hakuhagu.czjhg6jtbyze.ap-northeast-1.rds.amazonaws.com",
+    mysqlName: "hakuhagu",
+
     buyerThumbnailUrl: "https://i.ibb.co/QntzYHt/Kakao-Talk-Photo-2019-12-06-16-36-08.jpg",
     sellerThumbnailUrl: "https://i.ibb.co/jvZwwNM/Kakao-Talk-Photo-2019-12-06-16-36-12.jpg",
     userInfoThumbnailUrl: "https://i.ibb.co/4gCLzXH/Kakao-Talk-Photo-2019-12-06-16-36-04.jpg",
@@ -10,6 +15,7 @@ module.exports = {
     userRegistrationFailThumbnailUrl: "https://i.ibb.co/0f5zh6N/Kakao-Talk-Photo-2019-12-06-16-36-17.jpg",
     itemRegistrationSuccessThumbnailUrl: "http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg",
     itemRegistrationFailThumbnailUrl: "https://i.ibb.co/0f5zh6N/Kakao-Talk-Photo-2019-12-06-16-36-17.jpg",
+
     welcomeBlockId: "5dc91057ffa748000141163a",
     registrationBlockId: "5dc50c568192ac0001c5d1f0",
     buyerSearchTextBlockId: "5de3d514ffa7480001988106",

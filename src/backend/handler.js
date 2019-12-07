@@ -72,6 +72,11 @@ module.exports.itemRegistration = async (event) => {
   }
 };
 
+module.exports.imageUploadTest = async (event) => {
+  const re = database.uploadImage("test/loc/", "test", "http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg");
+  return builder.buildResponse(re);
+};
+
 module.exports.test = async (event) => {
   const body = parser.getBody(event);
   const userId = parser.getUserId(event);
