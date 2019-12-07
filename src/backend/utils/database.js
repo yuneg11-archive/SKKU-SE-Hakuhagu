@@ -1,4 +1,11 @@
 'use strict';
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host: "hakuhagu.czjhg6jtbyze.ap-northeast-1.rds.amazonaws.com",
+    user: "skkuse3",
+    password: "skkuse3!",
+    database: "hakuhagu",
+});
 
 // Placeholder
 const checkUserAuth = async (userId) => {
