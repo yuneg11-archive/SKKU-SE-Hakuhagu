@@ -51,20 +51,15 @@ const uploadImages = async (directory, locations) => {
     const result = await new Promise((resolve, reject) => {
       s3.upload(image, (err, data) => {
         if (err) {
-          resolve({
-            success: false,
-            location: "예상치 못한 오류가 발생했습니다."
-          });
+          resolve(null);
         } else {
-          resolve({
-            success: true,
-            location: data.Location
-          });
+          resolve(data.Location);
         }
       });
     });
-
-    results.push(result);
+    if (result != null) {
+      results.push(result);
+    }
   }
   return results;
 };
@@ -73,11 +68,13 @@ const uploadImages = async (directory, locations) => {
 const checkUserAuth = async (userId) => {
   const sql = 'SELECT school_mail_auth FROM user WHERE userId = ?';
   const user = await query(sql, [userId]);
+  console.log(user);
 
   if (user.length == 0) {
     return false;
   } else {
-    if (user[0] == 1) {
+    console.log(user[0].school_mail_auth == 1);
+    if (user[0].school_mail_auth == 1) {
       return true;
     } else {
       return false;
@@ -93,7 +90,7 @@ const registPendingAuthentication = async (userId, token) => {
   //                                                        token: string }
   var sql = 'INSERT INTO authmail(userId, token)VALUES(?,?)';
   var params = [userId, token];
-  
+
   try {
     const insert = await query(sql, params);
     console.log(insert);
@@ -115,10 +112,10 @@ const authPendingAuthentication = async (userId, token) => {
   //       then change user[userId].school_mail_auth to true
   var sql = 'UPDATE user SET school_mail_auth = 1 WHERE userId = ? and EXISTS (SELECT * FROM authmail WHERE authmail.userId = ?)';
   var params = [userId, userId];
-  
+
   try{
     const update = await query(sql, params);
-    console.log('school authenticated');
+    console.log(update);
     return {
       success: true, // success: true, fail: false
       message: "Fill error message if success == false" // success: "", fail: error message

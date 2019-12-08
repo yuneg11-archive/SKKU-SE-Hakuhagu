@@ -51,7 +51,7 @@ const authenticateMail = async (userId, token) => {
 
 const sendAuthenticateMail = async (userId, userMail) => {
   const token = generateToken();
-  const result = await database.registPendingAuthentication(userId, userMail, token);
+  const result = await database.registPendingAuthentication(userId, token);
   if (result.success == true) {
     const mailOptions = {
       from: credential.mailUserId,

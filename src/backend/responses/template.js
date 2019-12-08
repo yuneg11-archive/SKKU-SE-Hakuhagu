@@ -9,6 +9,9 @@ module.exports = {
   userRegistration: userResponse.userRegistration,
   userRegistrationSuccess: userResponse.userRegistrationSuccess,
   userRegistrationFail: userResponse.userRegistrationFail,
+  userInformation: userResponse.userInformation,
+  userAuthenticationSuccess: userResponse.userAuthenticationSuccess,
+  userAuthenticationFail: userResponse.userAuthenticationFail,
   itemRegistrationSuccess: itemResponse.itemRegistrationSuccess,
   itemRegistrationFail: itemResponse.itemRegistrationFail
 };

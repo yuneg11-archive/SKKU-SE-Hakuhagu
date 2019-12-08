@@ -40,10 +40,14 @@ module.exports.userRegistrationFail = (errorMessage) => {
   return builder.buildResponse([guideCard]);
 };
 
+module.exports.userInformation = (nickname, school_name, school_mail, openprofile, reliability_score) => {
+  return 
+};
+
 module.exports.userAuthenticationSuccess = () => {
-  return builder.buildAWSResponse("메일 인증에 성공하였습니다.");
+  return builder.buildAWSResponse("Mail authentication success!");
 };
 
 module.exports.userAuthenticationFail = () => {
-  return builder.buildAWSResponse("메일 인증에 실패하였습니다.");
+  return builder.buildAWSResponse("Mail authentication fail!");
 };

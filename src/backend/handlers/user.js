@@ -16,18 +16,6 @@ const registration = async (event) => {
   const timetable_image = parameters["timetable_image"].origin;
   const timetable = ""; // Todo: Process timetable_image and get JSON data
 
-  // const result = await database.registNewUser(userId, nickname, school_name, school_mail, timetable);
-  // if (result.success == true) {
-  //   mail = new Promise(async (resolve, reject) => {
-  //     await authenticator.sendAuthenticateMail(userId, school_mail);
-  //     console.log("Mail sended");
-  //     resolve();
-  //   });
-  //   return responseTemplate.userRegistrationSuccess(nickname);
-  // } else {
-  //   return responseTemplate.userRegistrationFail(result.message);
-  // }
-
   if (authenticator.authenticateUser(userId) == true) {
     return responseTemplate.userRegistrationFail("이미 등록된 사용자입니다.");
   } else {
@@ -51,16 +39,22 @@ const authentication = async (event) => {
   const token = keys["token"];
 
   const success = await authenticator.authenticateMail(userId, token);
-  if (success == false) {
+  if (success == true) {
     return responseTemplate.userAuthenticationSuccess();
   } else {
     return responseTemplate.userAuthenticationFail();
   }
-  return
 };
 
 const information = async (event) => {
-  // Todo: Get user information from database and build information card, then send
+  const userId = parser.getUserId(event);
+
+  const user = await database.getUser(userId);
+  if (user == false) {
+    return responseTemplate.userRegistration();
+  } else {
+    return responseTemplate.userInformation(user.nickname, user.school_name, user.school_mail, user.openprofile, user.reliability_score);
+  }
 };
 
 module.exports = {
