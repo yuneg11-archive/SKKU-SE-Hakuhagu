@@ -61,6 +61,12 @@ functions:
       - http:
           path: item/search/keyword
           method: post
+  itemDetail:
+    handler: handler.itemDetail
+    events:
+      - http:
+          path: item/detail
+          method: post
   qrcodeTest:
     handler: handler.qrcodeTest
     events:

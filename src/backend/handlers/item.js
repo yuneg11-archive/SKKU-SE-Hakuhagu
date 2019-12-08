@@ -62,9 +62,22 @@ const searchKeyword = async (event) => {
   }
 };
 
+const detail = async (event) => {
+  const extras = parser.getExtras(event);
+  const itemId = extras["itemId"];
+
+  const item = await database.getItem(itemId);
+  if (item != null) {
+    return responseTemplate.itemDetail(item);
+  } else {
+    return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
+  }
+};
+
 module.exports = {
     registration,
     list,
     searchCategory,
-    searchKeyword
+    searchKeyword,
+    detail
 };

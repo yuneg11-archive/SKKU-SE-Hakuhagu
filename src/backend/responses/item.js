@@ -36,13 +36,14 @@ module.exports.itemListSuccess = (itemList) => {
       break;
     }
     const item = itemList[key];
+    const resultItemId = item.itemId;
     const resultThumbnail = builder.getThumbnail(item.item_image[0]);
     const resultTitle = item.item_name;
     const resultDescription = item.item_detail;
     const resultPrice = item.item_price;
     const resultNickname = (item.nickname != undefined ? item.nickname : null);
     const resultOpenprofile = item.openprofile;
-    const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
+    const resultMainMenuButton = builder.getButton("상세정보", "block", "상세정보", "5decfa26ffa74800014b098e", {itemId: resultItemId});
     bodys.push(builder.getCommerceCardBody(resultTitle, resultDescription, resultPrice, resultThumbnail, resultNickname, [resultMainMenuButton]));
   }
 
@@ -57,6 +58,19 @@ module.exports.itemListFail = (errorMessage) => {
   const resultDescription = errorMessage;
   const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
   const resultCard = builder.getBasicCard(resultTitle, resultDescription, resultThumbnail, [resultMainMenuButton]);
+
+  // Build response
+  return builder.buildResponse([resultCard]);
+};
+
+module.exports.itemDetail = (item) => {
+  // Construct registration guide
+  const resultThumbnail = builder.getThumbnail(item.item_image[0]);
+  const resultTitle = item.item_name;
+  const resultDescription = item.item_detail;
+  const resultPrice = item.item_price;
+  const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
+  const resultCard = builder.getCommerceCard(resultTitle, resultDescription, resultPrice, resultThumbnail, null, [resultMainMenuButton]);
 
   // Build response
   return builder.buildResponse([resultCard]);

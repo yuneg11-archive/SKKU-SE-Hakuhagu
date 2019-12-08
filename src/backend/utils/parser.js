@@ -32,6 +32,10 @@ const getImageUrls = (image_list) => {
   return image_list.substring(5, image_list.length - 1).split(", ");
 };
 
+const getExtras = (event) => {
+  return getBody(event).action.clientExtra;
+};
+
 module.exports = {
   getBody,
   getUserId,
@@ -40,5 +44,6 @@ module.exports = {
   getBlockId,
   getKeys,
   getPrice,
-  getImageUrls
+  getImageUrls,
+  getExtras
 }

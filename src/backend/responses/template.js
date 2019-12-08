@@ -15,5 +15,6 @@ module.exports = {
   itemRegistrationSuccess: itemResponse.itemRegistrationSuccess,
   itemRegistrationFail: itemResponse.itemRegistrationFail,
   itemListSuccess: itemResponse.itemListSuccess,
-  itemListFail: itemResponse.itemListFail
+  itemListFail: itemResponse.itemListFail,
+  itemDetail: itemResponse.itemDetail
 };
