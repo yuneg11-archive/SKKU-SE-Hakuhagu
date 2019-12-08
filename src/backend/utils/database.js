@@ -377,8 +377,7 @@ const getKeyword = async (text) => {
   }
 };
 
-const registTempDeal = async(userId, itemId) => {
-  const token = await generateToken();
+const registTempDeal = async(userId, itemId, token) => {
   var sql = 'INSERT INTO temp_deal_list(userId, itemId, token)VALUES(?,?,?)';
   var params = [userId, itemId, token];
   try {
