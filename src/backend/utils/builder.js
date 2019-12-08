@@ -119,18 +119,19 @@ const getCarousel = (type, cards) => {
 }
 
 const getCommerceCard = (title, description, price, thumbnail, nickname, buttons=[]) => {
-  return {
+  const card = {
     commerceCard: {
       description: title + "\n" + description,
       price: price,
       currency: "won",
       thumbnails: [ thumbnail ],
-      profile: {
-        nickname: nickname
-      },
       buttons: buttons
     }
   };
+  if (nickname != null) {
+    card["profile"] = { nickname: nickname }
+  }
+  return card;
 }
 
 module.exports = {

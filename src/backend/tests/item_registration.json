@@ -40,6 +40,7 @@
     "name": "스킬 테스트",
     "clientExtra": {},
     "params": {
+      "item_category": "전자기기",
       "item_name": "어어",
       "item_price": "{\"amount\": 10000, \"unit\": \"원\"}",
       "item_detail": "처음으로",
@@ -47,6 +48,11 @@
     },
     "id": "5dda19bf8192ac00011a2918",
     "detailParams": {
+      "item_category": {
+        "origin": "전자기기",
+        "value": "전자기기",
+        "groupName": ""
+      },
       "item_name": {
         "origin": "상품의 이름",
         "value": "상품의 이름",
