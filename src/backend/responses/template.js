@@ -13,5 +13,7 @@ module.exports = {
   userAuthenticationSuccess: userResponse.userAuthenticationSuccess,
   userAuthenticationFail: userResponse.userAuthenticationFail,
   itemRegistrationSuccess: itemResponse.itemRegistrationSuccess,
-  itemRegistrationFail: itemResponse.itemRegistrationFail
+  itemRegistrationFail: itemResponse.itemRegistrationFail,
+  itemListSuccess: itemResponse.itemListSuccess,
+  itemListFail: itemResponse.itemListFail
 };

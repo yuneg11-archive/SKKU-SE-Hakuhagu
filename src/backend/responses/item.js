@@ -16,11 +16,39 @@ module.exports.itemRegistrationSuccess = (itemName, itemDetail, itemPrice, image
   return builder.buildResponse([resultCard]);
 };
 
-
 module.exports.itemRegistrationFail = (errorMessage) => {
   // Construct registration guide
   const resultThumbnail = builder.getThumbnail(resource.itemRegistrationFailThumbnailUrl);
   const resultTitle = "상품 등록 실패";
+  const resultDescription = errorMessage;
+  const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
+  const resultCard = builder.getBasicCard(resultTitle, resultDescription, resultThumbnail, [resultMainMenuButton]);
+
+  // Build response
+  return builder.buildResponse([resultCard]);
+};
+
+module.exports.itemListSuccess = (itemList) => {
+  // Construct commerce cards
+  const bodys = [];
+  for (var key in itemList) {
+    const item = itemList[key];
+    const resultThumbnail = builder.getThumbnail(item.item_image[0]);
+    const resultTitle = item.item_name;
+    const resultDescription = item.item_detail;
+    const resultPrice = item.item_price;
+    const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
+    bodys.push(builder.getCommerceCardBody(resultTitle, resultDescription, resultPrice, resultThumbnail, null, [resultMainMenuButton]));
+  }
+
+  // Build response
+  return builder.buildResponse([builder.getCarousel("commerceCard", bodys)]);
+};
+
+module.exports.itemListFail = (errorMessage) => {
+  // Construct result card
+  const resultThumbnail = builder.getThumbnail(resource.itemRegistrationFailThumbnailUrl);
+  const resultTitle = "상품 조회 실패";
   const resultDescription = errorMessage;
   const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
   const resultCard = builder.getBasicCard(resultTitle, resultDescription, resultThumbnail, [resultMainMenuButton]);

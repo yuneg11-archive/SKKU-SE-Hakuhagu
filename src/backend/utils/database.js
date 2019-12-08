@@ -34,7 +34,8 @@ const uploadImages = async (directory, locations) => {
   const results = [];
   for (var key in locations) {
     var location = locations[key];
-    const filename = location.substring(location.lastIndexOf('/') + 1, location.length) || location;
+    var filename = location.split("/");
+    filename = filename[filename.length - 1].split("?")[0];
     if (location.includes("http")) {
       fs.writeFileSync("/tmp/" + filename, request("GET", location).getBody());
       location = "/tmp/" + filename;
@@ -204,7 +205,7 @@ const getUser = async (userId) => {
 const registNewItem = async (userId, item_category, item_name, item_price, item_detail, item_image) => {
   const itemId = await generateToken();
   const imageurls = JSON.stringify(await uploadImages(itemId + '/', item_image));
-  var sql = 'INSERT INTO item(userId, category, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
+  var sql = 'INSERT INTO item(userId, category, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?,?)';
   var params = [userId, item_category, itemId, item_name, item_price, item_detail, imageurls, new Date().toISOString().slice(0, 19).replace('T', ' ')];
   console.log(Date.now());
   // userId: string, item_name: string, item_price: number, item_detail: string, item_image: JSON array
@@ -265,9 +266,10 @@ const getUserItem = async (userId) => {
   try{
     const usersitem = await query(sql, [userId]);
     for (var i = 0; i<usersitem.length; i++){
+      console.log(usersitem[i]);
       var res = {
         userId: usersitem[i].userId,
-        category: usersitem[i].category,
+        item_category: usersitem[i].category,
         itemId: usersitem[i].itemId,
         item_name: usersitem[i].item_name,
         item_price: usersitem[i].item_price,
@@ -279,6 +281,7 @@ const getUserItem = async (userId) => {
     }
     return results;
   }catch(error){
+    console.log(error);
     return null;
   }
 };

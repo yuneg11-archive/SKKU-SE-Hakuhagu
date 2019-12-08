@@ -21,6 +21,20 @@ const registration = async (event) => {
   }
 }
 
+const list = async (event) => {
+  const userId = parser.getUserId(event);
+
+  const result = await database.getUserItem(userId);
+  if (result != null) {
+    return responseTemplate.itemListSuccess(result);
+  } else if (result.length == 0) {
+    return responseTemplate.itemListFail("등록된 상품이 없습니다.");
+  } else {
+    return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
+  }
+};
+
 module.exports = {
-    registration
+    registration,
+    list
 };

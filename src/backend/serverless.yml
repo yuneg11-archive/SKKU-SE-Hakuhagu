@@ -37,9 +37,17 @@ functions:
           method: post
   itemRegistration:
     handler: handler.itemRegistration
+    warmup:
+      enabled: true
     events:
       - http:
           path: item/registration
+          method: post
+  itemList:
+    handler: handler.itemList
+    events:
+      - http:
+          path: item/list
           method: post
   imageUploadTest:
     handler: handler.imageUploadTest

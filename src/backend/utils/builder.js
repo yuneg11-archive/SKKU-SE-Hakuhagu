@@ -118,20 +118,24 @@ const getCarousel = (type, cards) => {
   }
 }
 
-const getCommerceCard = (title, description, price, thumbnail, nickname, buttons=[]) => {
-  const card = {
-    commerceCard: {
-      description: title + "\n" + description,
-      price: price,
-      currency: "won",
-      thumbnails: [ thumbnail ],
-      buttons: buttons
-    }
+const getCommerceCardBody = (title, description, price, thumbnail, nickname, buttons=[]) => {
+  const body = {
+    description: title + "\n" + description,
+    price: price,
+    currency: "won",
+    thumbnails: [ thumbnail ],
+    buttons: buttons
   };
   if (nickname != null) {
-    card["profile"] = { nickname: nickname }
+    body["profile"] = { nickname: nickname }
   }
-  return card;
+  return body;
+}
+
+const getCommerceCard = (title, description, price, thumbnail, nickname, buttons=[]) => {
+  return {
+    commerceCard: getCommerceCardBody(title, description, price, thumbnail, nickname, buttons)
+  };
 }
 
 module.exports = {
@@ -146,5 +150,6 @@ module.exports = {
   getBasicCard,
   getListCard,
   getCarousel,
+  getCommerceCardBody,
   getCommerceCard
 }

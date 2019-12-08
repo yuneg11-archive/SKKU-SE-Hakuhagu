@@ -69,8 +69,8 @@
         "groupName": ""
       },
       "item_image": {
-        "origin": "List(http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg, https://i.ibb.co/0f5zh6N/Kakao-Talk-Photo-2019-12-06-16-36-17.jpg)",
-        "value": "{\"privacyAgreement\":\"Y\",\"imageQuantity\":\"3\",\"secureUrls\":\"List(http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg, https://i.ibb.co/0f5zh6N/Kakao-Talk-Photo-2019-12-06-16-36-17.jpg)\"}",
+        "origin": "List(http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg)",
+        "value": "{\"privacyAgreement\":\"Y\",\"imageQuantity\":\"3\",\"secureUrls\":\"List(http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg)\"}",
         "groupName": ""
       }
     }
