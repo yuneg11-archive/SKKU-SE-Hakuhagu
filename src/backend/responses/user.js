@@ -41,7 +41,21 @@ module.exports.userRegistrationFail = (errorMessage) => {
 };
 
 module.exports.userInformation = (nickname, school_name, school_mail, openprofile, reliability_score) => {
-  return 
+  // Construct user information
+  const infoTitle = "회원 정보";
+  const infoNicknameList = builder.getListItem(nickname, "닉네임");
+  const infoSchoolNameList = builder.getListItem(school_name, "학교 이름");
+  const infoSchoolMailList = builder.getListItem(school_mail, "학교 이메일");
+  const infoOpenProfileList = builder.getListItem(openprofile, "오픈프로필 주소");
+  const infoReliabilityScoreList = builder.getListItem(reliability_score, "신뢰도");
+  const infoOpenProfileButton = builder.getButton("오픈프로필로", "webLink", openprofile);
+  const infoMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
+  const infoCard = builder.getListCard(infoTitle, "", [infoNicknameList, infoSchoolNameList, infoSchoolMailList,
+                                                       infoOpenProfileList, infoReliabilityScoreList],
+                                                      [infoOpenProfileButton, infoMainMenuButton]);
+
+  // Build response
+  return builder.buildResponse([infoCard]);
 };
 
 module.exports.userAuthenticationSuccess = () => {

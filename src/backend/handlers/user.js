@@ -50,10 +50,11 @@ const information = async (event) => {
   const userId = parser.getUserId(event);
 
   const user = await database.getUser(userId);
-  if (user == false) {
+  if (user == null) {
     return responseTemplate.userRegistration();
   } else {
-    return responseTemplate.userInformation(user.nickname, user.school_name, user.school_mail, user.openprofile, user.reliability_score);
+    const openprofile = (user.openprofile == null ? "-" : user.openprofile);
+    return responseTemplate.userInformation(user.nickname, user.school_name, user.school_mail, openprofile, user.reliability_score);
   }
 };
 

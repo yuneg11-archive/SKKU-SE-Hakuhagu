@@ -63,6 +63,7 @@ const uploadImages = async (directory, locations) => {
   }
   return results;
 };
+
 const generateToken = (seed="") => {
   const tokenLength = 15;
   const tokenArray = ['0','1','2','3','4','5','6','7','8','9',
@@ -80,12 +81,10 @@ const generateToken = (seed="") => {
 const checkUserAuth = async (userId) => {
   const sql = 'SELECT school_mail_auth FROM user WHERE userId = ?';
   const user = await query(sql, [userId]);
-  console.log(user);
 
   if (user.length == 0) {
     return false;
   } else {
-    console.log(user[0].school_mail_auth == 1);
     if (user[0].school_mail_auth == 1) {
       return true;
     } else {
@@ -175,13 +174,14 @@ const getUser = async (userId) => {
   var sql = 'SELECT * FROM user WHERE userId = ?';
   try{
     const pickuser = await query(sql, [userId]);
+    console.log(pickuser);
     return {
       userId: pickuser[0].userId,
       nickname: pickuser[0].nickname,
       school_name: pickuser[0].school_name,
       school_mail: pickuser[0].school_mail,
       school_mail_auth: pickuser[0].school_mail_auth,
-      timetable: JSON.parse(pickuser[0].timetable),
+      timetable: "",//JSON.parse(pickuser[0].timetable),
       openprofile: pickuser[0].openprofile,
       report_count: pickuser[0].report_count,
       reliability_score: pickuser[0].reliability_score
@@ -204,7 +204,7 @@ const getUser = async (userId) => {
 // Placeholder
 const registNewItem = async (userId, item_name, item_price, item_detail, item_image) => {
   const itemId = await generateToken();
-  const imageurls = JSON.stringify(await uploadImages(itemId,item_image));
+  const imageurls = JSON.stringify(await uploadImages(itemId + '/', item_image));
   var sql = 'INSERT INTO item(userId, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
   var params = [userId, 'itemid', item_name, item_price, item_detail, imageurls, NOW()];
   // userId: string, item_name: string, item_price: number, item_detail: string, item_image: JSON array
@@ -279,7 +279,7 @@ const getuserItem = async (userId) => {
     return null;
   }
 }
-    
+
 module.exports = {
   uploadImages,
   checkUserAuth,
