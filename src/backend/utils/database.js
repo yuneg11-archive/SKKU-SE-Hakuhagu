@@ -30,7 +30,6 @@ const query = async (sql, params) => {
     });
 };
 
-
 const uploadImages = async (directory, locations) => {
   const results = [];
   for (var key in locations) {
@@ -206,7 +205,8 @@ const registNewItem = async (userId, item_name, item_price, item_detail, item_im
   const itemId = await generateToken();
   const imageurls = JSON.stringify(await uploadImages(itemId + '/', item_image));
   var sql = 'INSERT INTO item(userId, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
-  var params = [userId, 'itemid', item_name, item_price, item_detail, imageurls, NOW()];
+  var params = [userId, itemId, item_name, item_price, item_detail, imageurls, new Date().toISOString().slice(0, 19).replace('T', ' ')];
+  console.log(Date.now());
   // userId: string, item_name: string, item_price: number, item_detail: string, item_image: JSON array
   // Todo: Create new item with scheme { userId: string,
   //                                     itemId: number (auto increment),
@@ -223,6 +223,7 @@ const registNewItem = async (userId, item_name, item_price, item_detail, item_im
       message: ""
     };
   }catch(err){
+    console.log(err);
     return{
       success: false,
       message:"fail"
@@ -257,7 +258,7 @@ const getItem = async (itemId) => {
   }
 };
 
-const getuserItem = async (userId) => {
+const getUserItem = async (userId) => {
   const results = [];
   var sql = 'SELECT * FROM item WHERE userId = ?';
   try{
@@ -325,5 +326,5 @@ module.exports = {
   getUser,
   registNewItem,
   getItem,
-  getuserItem
+  getUserItem
 }

@@ -118,6 +118,21 @@ const getCarousel = (type, cards) => {
   }
 }
 
+const getCommerceCard = (title, description, price, thumbnail, nickname, buttons=[]) => {
+  return {
+    commerceCard: {
+      description: title + "\n" + description,
+      price: price,
+      currency: "won",
+      thumbnails: [ thumbnail ],
+      profile: {
+        nickname: nickname
+      },
+      buttons: buttons
+    }
+  };
+}
+
 module.exports = {
   buildResponse,
   buildAWSResponse,
@@ -129,5 +144,6 @@ module.exports = {
   getBasicCardBody,
   getBasicCard,
   getListCard,
-  getCarousel
+  getCarousel,
+  getCommerceCard
 }

@@ -24,11 +24,21 @@ const getKeys = (event) => {
   return event.queryStringParameters;
 }
 
+const getPrice = (price_string) => {
+  return JSON.parse(price_string).amount
+};
+
+const getImageUrls = (image_list) => {
+  return image_list.substring(5, image_list.length - 1).split(", ");
+};
+
 module.exports = {
   getBody,
   getUserId,
   getMessage,
   getParameters,
   getBlockId,
-  getKeys
+  getKeys,
+  getPrice,
+  getImageUrls
 }

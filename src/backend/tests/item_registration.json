@@ -48,8 +48,8 @@
     "id": "5dda19bf8192ac00011a2918",
     "detailParams": {
       "item_name": {
-        "origin": "어어",
-        "value": "어어",
+        "origin": "상품의 이름",
+        "value": "상품의 이름",
         "groupName": ""
       },
       "item_price": {
@@ -58,13 +58,13 @@
         "groupName": ""
       },
       "item_detail": {
-        "origin": "처음으로",
-        "value": "처음으로",
+        "origin": "상세한 설명",
+        "value": "상세한 설명",
         "groupName": ""
       },
-      "$item_image": {
-        "origin": "List(http://secure.kakaocdn.net/dna/biS7Z3/K6avpFEudv/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575476312&allow_ip=&allow_referer=&signature=gAuRfga0QSVLQTu%2Fto7KhmgKyGI%3D, http://secure.kakaocdn.net/dna/cjvCoE/K6aAZNxD00/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575476312&allow_ip=&allow_referer=&signature=JZ61bx1qvBaR6RHGo352yak7fHA%3D, http://secure.kakaocdn.net/dna/bPthHV/K6aA1q3sS8/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575476312&allow_ip=&allow_referer=&signature=9rz9GHZDcgjnucALZpUjFe71QAY%3D)",
-        "value": "{\"privacyAgreement\":\"Y\",\"imageQuantity\":\"3\",\"secureUrls\":\"List(http://secure.kakaocdn.net/dna/biS7Z3/K6avpFEudv/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575476312&allow_ip=&allow_referer=&signature=gAuRfga0QSVLQTu%2Fto7KhmgKyGI%3D, http://secure.kakaocdn.net/dna/cjvCoE/K6aAZNxD00/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575476312&allow_ip=&allow_referer=&signature=JZ61bx1qvBaR6RHGo352yak7fHA%3D, http://secure.kakaocdn.net/dna/bPthHV/K6aA1q3sS8/XXX/img_org.jpg?credential=Kq0eSbCrZgKIq51jh41Uf1jLsUh7VWcz&expires=1575476312&allow_ip=&allow_referer=&signature=9rz9GHZDcgjnucALZpUjFe71QAY%3D)\",\"expire\":\"1970-01-19T14:37:56+0900\"}",
+      "item_image": {
+        "origin": "List(http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg, https://i.ibb.co/0f5zh6N/Kakao-Talk-Photo-2019-12-06-16-36-17.jpg)",
+        "value": "{\"privacyAgreement\":\"Y\",\"imageQuantity\":\"3\",\"secureUrls\":\"List(http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg, https://i.ibb.co/0f5zh6N/Kakao-Talk-Photo-2019-12-06-16-36-17.jpg)\"}",
         "groupName": ""
       }
     }
