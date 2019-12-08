@@ -86,25 +86,49 @@ const checkUserAuth = async (userId) => {
 };
 
 // Placeholder
-const registPendingAuthentication = async (userId, school_mail, token) => {
+const registPendingAuthentication = async (userId, token) => {
   // userId: string, school_mail: string, token: string
   // Todo: Create pending mail authentication with scheme { userId: string,
   //                                                        school_mail: string,
   //                                                        token: string }
-  return {
-    success: true, // success: true, fail: false
-    message: "Fill error message if success == false" // success: "", fail: error message
-  };
+  var sql = 'INSERT INTO authmail(userId, token)VALUES(?,?)';
+  var params = [userId, token];
+  
+  try {
+    const insert = await query(sql, params);
+    console.log(insert);
+    return {
+      success: true,
+      message: ""
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: ""
+    };
+  }
 };
 
 const authPendingAuthentication = async (userId, token) => {
   // userId: string, token: string
   // Todo: Delete pending mail authentication with userId and token,
   //       then change user[userId].school_mail_auth to true
-  return {
-    success: true, // success: true, fail: false
-    message: "Fill error message if success == false" // success: "", fail: error message
-  };
+  var sql = 'UPDATE user SET school_mail_auth = 1 WHERE userId = ? and EXISTS (SELECT * FROM authmail WHERE authmail.userId = ?)';
+  var params = [userId, userId];
+  
+  try{
+    const update = await query(sql, params);
+    console.log('school authenticated');
+    return {
+      success: true, // success: true, fail: false
+      message: "Fill error message if success == false" // success: "", fail: error message
+    };
+  } catch(error){
+    return{
+      success: false,
+      message: ""
+    };
+  }
 };
 
 // Placeholder
