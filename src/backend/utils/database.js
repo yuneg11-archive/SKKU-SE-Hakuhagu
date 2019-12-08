@@ -201,11 +201,11 @@ const getUser = async (userId) => {
 };
 
 // Placeholder
-const registNewItem = async (userId, item_name, item_price, item_detail, item_image) => {
+const registNewItem = async (userId, category, item_name, item_price, item_detail, item_image) => {
   const itemId = await generateToken();
   const imageurls = JSON.stringify(await uploadImages(itemId + '/', item_image));
-  var sql = 'INSERT INTO item(userId, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
-  var params = [userId, itemId, item_name, item_price, item_detail, imageurls, new Date().toISOString().slice(0, 19).replace('T', ' ')];
+  var sql = 'INSERT INTO item(userId, category, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
+  var params = [userId, category, itemId, item_name, item_price, item_detail, imageurls, new Date().toISOString().slice(0, 19).replace('T', ' ')];
   console.log(Date.now());
   // userId: string, item_name: string, item_price: number, item_detail: string, item_image: JSON array
   // Todo: Create new item with scheme { userId: string,
@@ -246,6 +246,7 @@ const getItem = async (itemId) => {
     const pickitem = await query(sql, [itemId]);
     return {
       userId: pickitem[0].userId,
+      category: pickitem[0].category,
       itemId: pickitem[0].itemId,
       item_name: pickitem[0].item_name,
       item_price: pickitem[0].item_price,
@@ -266,6 +267,7 @@ const getUserItem = async (userId) => {
     for (var i = 0; i<usersitem.length; i++){
       var res = {
         userId: usersitem[i].userId,
+        category: usersitem[i].category,
         itemId: usersitem[i].itemId,
         item_name: usersitem[i].item_name,
         item_price: usersitem[i].item_price,
@@ -279,7 +281,7 @@ const getUserItem = async (userId) => {
   }catch(error){
     return null;
   }
-}
+};
 
 const setOpenprofile = async (userId, openprofile) =>{
   var sql = 'UPDATE user SET openprofile = ? WHERE userId = ?';
@@ -297,7 +299,7 @@ const setOpenprofile = async (userId, openprofile) =>{
       message:"fail"
     };
   }
-}
+};
 
 const setReportcount = async (userId) => {
   var sql = 'UPDATE user SET report_count = report_count + 1 WHERE userId = ?';
@@ -315,7 +317,58 @@ const setReportcount = async (userId) => {
       message:"fail"
     };
   }
-}
+};
+
+const getCategory = async (category) => {
+  const results = [];
+  var sql = 'SELECT * FROM item WHERE category = ?';
+  var params = [category];
+  try{
+    const searchitem = await query(sql, params);
+    for (var i = 0; i<searchitem.length; i++){
+      var res = {
+        userId: searchitem[i].userId,
+        category: searchitem[i].category,
+        itemId: searchitem[i].itemId,
+        item_name: searchitem[i].item_name,
+        item_price: searchitem[i].item_price,
+        item_detail: searchitem[i].item_detail,
+        item_image: JSON.parse(searchitem[i].item_image),
+        item_date: searchitem[i].item_date // Please convert to some date type
+      };
+      results.push(res);
+    }
+    return results;
+  }catch(error){
+    return null;
+  }
+};
+
+const getKeywordsearch = async (text) => {
+  const results = [];
+  var keyword = '%' + text + '%';
+  var sql = 'SELECT * FROM item WHERE item_name LIKE ? OR item_detail LIKE ?';
+  var params = [keyword, keyword];
+  try{
+    const searchitem = await query(sql, params);
+    for (var i = 0; i<searchitem.length; i++){
+      var res = {
+        userId: searchitem[i].userId,
+        category: searchitem[i].category,
+        itemId: searchitem[i].itemId,
+        item_name: searchitem[i].item_name,
+        item_price: searchitem[i].item_price,
+        item_detail: searchitem[i].item_detail,
+        item_image: JSON.parse(searchitem[i].item_image),
+        item_date: searchitem[i].item_date // Please convert to some date type
+      };
+      results.push(res);
+    }
+    return results;
+  }catch(error){
+    return null;
+  }
+};
 
 module.exports = {
   uploadImages,
