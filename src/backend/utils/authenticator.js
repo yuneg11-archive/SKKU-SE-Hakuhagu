@@ -4,6 +4,7 @@ const database = require("./database");
 const resource = require("./resource");
 const credential = require("./credential");
 const nodemailer = require("nodemailer");
+const qrcode = require("qrcode");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -14,8 +15,9 @@ const transporter = nodemailer.createTransport({
 });
 
 const generateQrcode = (url) => {
-  // Todo: Generate QR code contains url information
-  //return Image;
+  const path = "/tmp/qrcode.png";
+  qrcode.toFile(path, url);
+  return path;
 };
 
 const generateToken = (seed="") => {
@@ -81,6 +83,7 @@ const sendAuthenticateMail = async (userId, userMail) => {
 };
 
 module.exports = {
+  generateQrcode,
   authenticateUser,
   authenticateMail,
   sendAuthenticateMail

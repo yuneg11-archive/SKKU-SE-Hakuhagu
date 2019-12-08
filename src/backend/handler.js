@@ -116,10 +116,8 @@ module.exports.itemSearchKeyword = async (event) => {
   }
 };
 
-module.exports.imageUploadTest = async (event) => {
-  const re = await database.uploadImages("test/loc/", ["http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg",
-                                                       "https://i.ibb.co/QntzYHt/Kakao-Talk-Photo-2019-12-06-16-36-08.jpg",
-                                                       "https://i.ibb.co/jvZwwNM/Kakao-Talk-Photo-2019-12-06-16-36-12.jpg"]);
+module.exports.qrcodeTest = async (event) => {
+  const re = await authenticator.generateQrcode("userId=awefoiewbuafwehweabu&itemId=eifbaif7382bvhdj&token=euhsnvjqifjekvne");
   return builder.buildAWSResponse(re);
 };
 

@@ -61,11 +61,11 @@ functions:
       - http:
           path: item/search/keyword
           method: post
-  imageUploadTest:
-    handler: handler.imageUploadTest
+  qrcodeTest:
+    handler: handler.qrcodeTest
     events:
       - http:
-          path: image
+          path: qrcode
           method: post
   test:
     handler: handler.test
