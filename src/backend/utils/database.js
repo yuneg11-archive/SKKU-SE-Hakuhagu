@@ -397,7 +397,7 @@ const registTempDeal = async(userId, itemId, token) => {
 };
 
 const registNewDeal = async(sell_id, buy_id, itemId, item_name) => {
-  var sql = 'INSERT INTO deal_list(sell_id, buy_id, itemId, item_name)VALUES(?,?,?,?);
+  var sql = 'INSERT INTO deal_list(sell_id, buy_id, itemId, item_name)VALUES(?,?,?,?)';
   var params = [sell_id, buy_id, itemId, item_name];
   try {
     const insert = await query(sql, params);
