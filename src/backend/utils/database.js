@@ -164,15 +164,15 @@ const getUser = async (userId) => {
   try{
     const pickuser = await query(sql, [userId]);
     return {
-      userId: pickuser.userId,
-      nickname: pickuser.nickname,
-      school_name: pickuser.school_name,
-      school_mail: pickuser.school_mail,
-      school_mail_auth: 1,
-      timetable: JSON.parse(pickuser.timetable),
-      openprofile: pickuser.openprofile,
-      report_count: pickuser.report_count,
-      reliability_score: pickuser.reliability_score
+      userId: pickuser[0].userId,
+      nickname: pickuser[0].nickname,
+      school_name: pickuser[0].school_name,
+      school_mail: pickuser[0].school_mail,
+      school_mail_auth: pickuser[0].school_mail_auth,
+      timetable: JSON.parse(pickuser[0].timetable),
+      openprofile: pickuser[0].openprofile,
+      report_count: pickuser[0].report_count,
+      reliability_score: pickuser[0].reliability_score
     };
   }catch(error){
     return false;
@@ -221,13 +221,13 @@ const getItem = async (itemId) => {
   try{
     const pickitem = await query(sql, [itemId]);
     return {
-      userId: pickitem.userId,
-      itemId: pickitem.itemId,
-      item_name: pickitem.item_name,
-      item_price: pickitem.item_price,
-      item_detail: pickitem.item_detail,
-      item_image: JSON.parse(pickitem.item_image),
-      item_date: null // Please convert to some date type
+      userId: pickitem[0].userId,
+      itemId: pickitem[0].itemId,
+      item_name: pickitem[0].item_name,
+      item_price: pickitem[0].item_price,
+      item_detail: pickitem[0].item_detail,
+      item_image: JSON.parse(pickitem[0].item_image),
+      item_date: pickitem[0].item_date // Please convert to some date type
       };
   }catch(error){
     return false;
