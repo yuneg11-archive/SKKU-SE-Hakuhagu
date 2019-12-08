@@ -379,5 +379,7 @@ module.exports = {
   getUser,
   registNewItem,
   getItem,
-  getUserItem
+  getUserItem,
+  getCategory,
+  getKeywordsearch
 }
