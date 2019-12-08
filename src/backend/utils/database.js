@@ -377,6 +377,65 @@ const getKeyword = async (text) => {
   }
 };
 
+const registTempDeal = async(userId, itemId) => {
+  const token = await generateToken();
+  var sql = 'INSERT INTO temp_deal_list(userId, itemId, token)VALUES(?,?,?)';
+  var params = [userId, itemId, token];
+  try {
+    const insert = await query(sql, params);
+    console.log(insert);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    console.log(err);
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+};
+
+const registNewDeal = async(sell_id, buy_id, itemId, item_name) => {
+  var sql = 'INSERT INTO deal_list(sell_id, buy_id, itemId, item_name)VALUES(?,?,?,?);
+  var params = [sell_id, buy_id, itemId, item_name];
+  try {
+    const insert = await query(sql, params);
+    console.log(insert);
+    await deleteItem(itemId);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    console.log(err);
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+};
+
+const deleteItem = async(itemId) => {
+  var sql = 'DELETE FROM item WHERE itemId = ?';
+  var params = [itemId];
+  try {
+    const deletion = await query(sql, params);
+    console.log(deletion);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    console.log(err);
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+};
+
 module.exports = {
   uploadImages,
   checkUserAuth,
@@ -388,5 +447,8 @@ module.exports = {
   getItem,
   getUserItem,
   getCategory,
-  getKeyword
+  getKeyword,
+  registTempDeal,
+  registNewDeal,
+  deleteItem
 }
