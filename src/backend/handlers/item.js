@@ -48,8 +48,23 @@ const searchCategory = async (event) => {
   }
 };
 
+const searchKeyword = async (event) => {
+  const parameters = parser.getParameters(event);
+  const item_category = parameters["item_keyword"].origin;
+
+  const result = await database.getKeyword(item_category);
+  if (result == null) {
+    return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
+  } else if (result.length == 0) {
+    return responseTemplate.itemListFail("등록된 상품이 없습니다.");
+  } else {
+    return responseTemplate.itemListSuccess(result);
+  }
+};
+
 module.exports = {
     registration,
     list,
-    searchCategory
+    searchCategory,
+    searchKeyword
 };

@@ -55,6 +55,12 @@ functions:
       - http:
           path: item/search/category
           method: post
+  itemSearchKeyword:
+    handler: handler.itemSearchKeyword
+    events:
+      - http:
+          path: item/search/keyword
+          method: post
   imageUploadTest:
     handler: handler.imageUploadTest
     events:

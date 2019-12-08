@@ -7,7 +7,7 @@ module.exports.welcome = () => {
   // Construct buyer card
   const buyerThumbnail = builder.getThumbnail(resource.buyerThumbnailUrl);
   const buyerSearchTextButton = builder.getButton("상품 카테고리 검색", "block", "상품 카테고리 검색", resource.buyerSearchCategoryBlockId);
-  const buyerSearchImageButton = builder.getButton("상품 제목 검색", "block", "상품 제목 검색", resource.buyerSearchNameBlockId);
+  const buyerSearchImageButton = builder.getButton("상품 키워드 검색", "block", "상품 키워드 검색", resource.buyerSearchNameBlockId);
   const buyerContractButton = builder.getButton("구매자 거래 체결", "block", "구매자 거래 체결", resource.buyerContractBlockId);
   const buyerCardBody = builder.getBasicCardBody("구매", "상품을 구매합니다.", buyerThumbnail, [buyerSearchTextButton, buyerSearchImageButton, buyerContractButton]);
 

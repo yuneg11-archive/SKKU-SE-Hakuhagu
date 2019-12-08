@@ -105,6 +105,17 @@ module.exports.itemSearchCategory = async (event) => {
   }
 };
 
+module.exports.itemSearchKeyword = async (event) => {
+  if (await checkAuth(event) == true) {
+    const response = await itemHandler.searchKeyword(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
+};
+
 module.exports.imageUploadTest = async (event) => {
   const re = await database.uploadImages("test/loc/", ["http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg",
                                                        "https://i.ibb.co/QntzYHt/Kakao-Talk-Photo-2019-12-06-16-36-08.jpg",

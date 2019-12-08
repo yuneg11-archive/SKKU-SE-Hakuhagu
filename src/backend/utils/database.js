@@ -349,7 +349,7 @@ const getCategory = async (category) => {
   }
 };
 
-const getKeywordsearch = async (text) => {
+const getKeyword = async (text) => {
   const results = [];
   var keyword = '%' + text + '%';
   var sql = 'SELECT user.nickname, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.item_name LIKE ? OR item.item_detail LIKE ?';
@@ -388,5 +388,5 @@ module.exports = {
   getItem,
   getUserItem,
   getCategory,
-  getKeywordsearch
+  getKeyword
 }
