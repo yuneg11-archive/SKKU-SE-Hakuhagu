@@ -215,10 +215,19 @@ const registNewItem = async (userId, item_name, item_price, item_detail, item_im
   //                                     item_detail: string,
   //                          caution -> item_image: stringfied JSON (use JSON.stringfy()),
   //                                     item_date: date (auto fill) }
-  return {
-    success: true, // success: true, fail: false
-    message: "Fill error message if success == false" // success: "", fail: error message
-  };
+  try {
+    const insert = await query(sql, params);
+    console.log(insert);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
 };
 
 // Placeholder
@@ -231,7 +240,7 @@ const getItem = async (itemId) => {
   //                                 item_detail: string,
   //                      caution -> item_image: JSON (use JSON.parse()),
   //                                 item_date: date }
-  var sql = 'SELECT * FROM itme WHERE itemId = ?';
+  var sql = 'SELECT * FROM item WHERE itemId = ?';
   try{
     const pickitem = await query(sql, [itemId]);
     return {
@@ -248,6 +257,29 @@ const getItem = async (itemId) => {
   }
 };
 
+const getuserItem = async (userId) => {
+  const results = [];
+  var sql = 'SELECT * FROM item WHERE userId = ?';
+  try{
+    const usersitem = await query(sql, [userId]);
+    for (var i = 0; i<usersitem.length; i++){
+      var res = {
+        userId: usersitem[i].userId,
+        itemId: usersitem[i].itemId,
+        item_name: usersitem[i].item_name,
+        item_price: usersitem[i].item_price,
+        item_detail: usersitem[i].item_detail,
+        item_image: JSON.parse(usersitem[i].item_image),
+        item_date: usersitem[i].item_date // Please convert to some date type
+      };
+      results.push(res);
+    }
+    return results;
+  }catch(error){
+    return false;
+  }
+}
+    
 module.exports = {
   uploadImages,
   checkUserAuth,
