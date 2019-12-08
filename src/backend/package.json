@@ -14,5 +14,7 @@
     "nodemailer": "^6.4.0",
     "sync-request": "^6.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "serverless-plugin-warmup": "^4.7.1-rc.1"
+  }
 }

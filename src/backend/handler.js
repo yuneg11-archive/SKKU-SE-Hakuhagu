@@ -41,6 +41,11 @@ module.exports.welcome = async (event) => {
 };
 
 module.exports.userRegistration = async (event) => {
+  if (event.source === "serverless-plugin-warmup") {
+    console.log("WarmUP")
+    return;
+  }
+
   if (await checkAuth(event) == true) { // Avoid regist again
     console.log("Registration fail");
     return responseTemplate.userRegistrationFail("이미 가입되어 있습니다.");

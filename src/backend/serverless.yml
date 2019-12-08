@@ -17,6 +17,8 @@ functions:
           method: post
   userRegistration:
     handler: handler.userRegistration
+    warmup:
+      enabled: true
     events:
       - http:
           path: user/registration
@@ -51,3 +53,6 @@ functions:
       - http:
           path: test
           method: post
+
+plugins:
+  - serverless-plugin-warmup
