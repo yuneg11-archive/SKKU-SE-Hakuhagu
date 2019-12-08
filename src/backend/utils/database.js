@@ -191,8 +191,9 @@ const getUser = async (userId) => {
 
 // Placeholder
 const registNewItem = async (userId, item_name, item_price, item_detail, item_image) => {
+  const imageurls = JSON.stringify(await uploadImages(itemId,item_image));
   var sql = 'INSERT INTO item(userId, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
-  var params = ['testId2','testitemid', 'itemname', 10000,'itemdetail', 'itemimage_s3url', 'date'];
+  var params = [userId, 'itemid', item_name, item_price, item_detail, imageurls, NOW()];
   // userId: string, item_name: string, item_price: number, item_detail: string, item_image: JSON array
   // Todo: Create new item with scheme { userId: string,
   //                                     itemId: number (auto increment),
