@@ -280,6 +280,42 @@ const getuserItem = async (userId) => {
   }
 }
 
+const setOpenprofile = async (userId, openprofile) =>{
+  var sql = 'UPDATE user SET openprofile = ? WHERE userId = ?';
+  var params = [openprofile, userId];
+  try {
+    const update = await query(sql, params);
+    console.log(update);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+}
+
+const setReportcount = async (userId) => {
+  var sql = 'UPDATE user SET report_count = report_count + 1 WHERE userId = ?';
+  var params = [userId];
+   try {
+    const update = await query(sql, params);
+    console.log(update);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+}
+
 module.exports = {
   uploadImages,
   checkUserAuth,
