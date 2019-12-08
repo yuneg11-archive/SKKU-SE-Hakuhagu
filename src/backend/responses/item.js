@@ -32,13 +32,18 @@ module.exports.itemListSuccess = (itemList) => {
   // Construct commerce cards
   const bodys = [];
   for (var key in itemList) {
+    if (key > 9) {
+      break;
+    }
     const item = itemList[key];
     const resultThumbnail = builder.getThumbnail(item.item_image[0]);
     const resultTitle = item.item_name;
     const resultDescription = item.item_detail;
     const resultPrice = item.item_price;
+    const resultNickname = (item.nickname != undefined ? item.nickname : null);
+    const resultOpenprofile = item.openprofile;
     const resultMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
-    bodys.push(builder.getCommerceCardBody(resultTitle, resultDescription, resultPrice, resultThumbnail, null, [resultMainMenuButton]));
+    bodys.push(builder.getCommerceCardBody(resultTitle, resultDescription, resultPrice, resultThumbnail, resultNickname, [resultMainMenuButton]));
   }
 
   // Build response

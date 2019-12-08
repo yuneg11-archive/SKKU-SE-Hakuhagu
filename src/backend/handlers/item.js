@@ -25,16 +25,31 @@ const list = async (event) => {
   const userId = parser.getUserId(event);
 
   const result = await database.getUserItem(userId);
-  if (result != null) {
-    return responseTemplate.itemListSuccess(result);
+  if (result == null) {
+    return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
   } else if (result.length == 0) {
     return responseTemplate.itemListFail("등록된 상품이 없습니다.");
   } else {
+    return responseTemplate.itemListSuccess(result);
+  }
+};
+
+const searchCategory = async (event) => {
+  const parameters = parser.getParameters(event);
+  const item_category = parameters["item_category"].value;
+
+  const result = await database.getCategory(item_category);
+  if (result == null) {
     return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
+  } else if (result.length == 0) {
+    return responseTemplate.itemListFail("등록된 상품이 없습니다.");
+  } else {
+    return responseTemplate.itemListSuccess(result);
   }
 };
 
 module.exports = {
     registration,
-    list
+    list,
+    searchCategory
 };

@@ -333,7 +333,7 @@ const getCategory = async (category) => {
         nickname: searchitem[i].nickname,
         openprofile: searchitem[i].openprofile,
         userId: searchitem[i].userId,
-        category: searchitem[i].category,
+        item_category: searchitem[i].category,
         itemId: searchitem[i].itemId,
         item_name: searchitem[i].item_name,
         item_price: searchitem[i].item_price,

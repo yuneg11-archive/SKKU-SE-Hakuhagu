@@ -18,10 +18,10 @@ module.exports = {
 
     welcomeBlockId: "5dc91057ffa748000141163a",
     registrationBlockId: "5dc50c568192ac0001c5d1f0",
-    buyerSearchTextBlockId: "5de3d514ffa7480001988106",
-    buyerSearchImageBlockId: "5de3d53fb617ea0001cb079c",
+    buyerSearchCategoryBlockId: "5de3d521ffa7480001988108",
+    buyerSearchNameBlockId: "5de3d534ffa748000198810a",
     buyerContractBlockId: "5de3d561b617ea0001cb07a2",
-    sellerItemRegistBlockId: "5de3c871ffa74800019880f3",
+    sellerItemRegistBlockId: "5de3ccb3b617ea0001cb0792",
     sellerItemListBlockId: "5de3d4beffa7480001988102",
     sellerContractBlockId: "5de3d4eaffa7480001988104",
     userInfoQueryBlockId: "5de3d56d8192ac0001d65d18",
