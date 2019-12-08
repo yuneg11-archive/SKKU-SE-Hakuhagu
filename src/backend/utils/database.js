@@ -187,7 +187,7 @@ const getUser = async (userId) => {
       reliability_score: pickuser[0].reliability_score
     };
   }catch(error){
-    return false;
+    return null;
   }
   // userId: string
   // Todo: Get user data of userId { userId: string,
@@ -253,7 +253,7 @@ const getItem = async (itemId) => {
       item_date: pickitem[0].item_date // Please convert to some date type
       };
   }catch(error){
-    return false;
+    return null;
   }
 };
 
@@ -276,7 +276,7 @@ const getuserItem = async (userId) => {
     }
     return results;
   }catch(error){
-    return false;
+    return null;
   }
 }
     
@@ -288,5 +288,6 @@ module.exports = {
   registNewUser,
   getUser,
   registNewItem,
-  getItem
+  getItem,
+  getuserItem
 }
