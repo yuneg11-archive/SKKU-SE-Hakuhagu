@@ -321,12 +321,14 @@ const setReportcount = async (userId) => {
 
 const getCategory = async (category) => {
   const results = [];
-  var sql = 'SELECT * FROM item WHERE category = ?';
+  var sql = 'SELECT user.nickname, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.category = ?';
   var params = [category];
   try{
     const searchitem = await query(sql, params);
     for (var i = 0; i<searchitem.length; i++){
       var res = {
+        nickname: searchitem[i].nickname,
+        openprofile: searchitem[i].openprofile,
         userId: searchitem[i].userId,
         category: searchitem[i].category,
         itemId: searchitem[i].itemId,
@@ -347,12 +349,14 @@ const getCategory = async (category) => {
 const getKeywordsearch = async (text) => {
   const results = [];
   var keyword = '%' + text + '%';
-  var sql = 'SELECT * FROM item WHERE item_name LIKE ? OR item_detail LIKE ?';
+  var sql = 'SELECT user.nickname, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.item_name LIKE ? OR item.item_detail LIKE ?';
   var params = [keyword, keyword];
   try{
     const searchitem = await query(sql, params);
     for (var i = 0; i<searchitem.length; i++){
       var res = {
+        nickname: searchitem[i].nickname,
+        openprofile: searchitem[i].openprofile,
         userId: searchitem[i].userId,
         category: searchitem[i].category,
         itemId: searchitem[i].itemId,
