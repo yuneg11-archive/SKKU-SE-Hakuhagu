@@ -61,8 +61,11 @@ const sendAuthenticateMail = async (userId, userMail) => {
     };
 
     try {
-      return true; // Todo: remove
-      const result = await transporter.sendMail(mailOptions);
+      const result = await new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (err, info) => {
+          resolve(info);
+        });
+      });
       console.log(result);
       if (Object.keys(result.accepted).length == 1) {
         return true;

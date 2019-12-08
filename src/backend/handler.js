@@ -10,7 +10,7 @@ const itemHandler = require("./handlers/item");
 
 const checkAuth = async (event) => {
   const userId = parser.getUserId(event);
-  return authenticator.authenticateUser(userId);
+  return await authenticator.authenticateUser(userId);
 }
 
 const getAuthFailResponse = () => {
@@ -46,6 +46,7 @@ module.exports.userRegistration = async (event) => {
     return responseTemplate.userRegistrationFail("이미 가입되어 있습니다.");
   } else {
     const response = await userHandler.registration(event);
+    console.log(response);
     return response;
   }
 };

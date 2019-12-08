@@ -18,7 +18,7 @@ module.exports.userRegistration = () => {
 module.exports.userRegistrationSuccess = (userName) => {
   // Construct registration guide
   const guideThumbnail = builder.getThumbnail(resource.userRegistrationSuccessThumbnailUrl);
-  const guideTitle= "회원 가입 성공";
+  const guideTitle = "회원 가입 성공";
   const guideDescription = "안녕하세요, " + userName + "님!\n학교 인증이 완료된 후 서비스를 이용하실 수 있습니다.\n메일 인증을 완료하신 후에 완료 버튼을 눌러주세요.";
   const guideMainMenuButton = builder.getButton("메일 인증 완료", "block", "처음으로", resource.welcomeBlockId);
   const guideCard = builder.getBasicCard(guideTitle, guideDescription, guideThumbnail, [guideMainMenuButton]);
@@ -31,7 +31,7 @@ module.exports.userRegistrationSuccess = (userName) => {
 module.exports.userRegistrationFail = (errorMessage) => {
   // Construct registration guide
   const guideThumbnail = builder.getThumbnail(resource.userRegistrationFailThumbnailUrl);
-  const guideTitle= "회원 가입 실패";
+  const guideTitle = "회원 가입 실패";
   const guideDescription = errorMessage;
   const guideMainMenuButton = builder.getButton("처음으로", "block", "처음으로", resource.welcomeBlockId);
   const guideCard = builder.getBasicCard(guideTitle, guideDescription, guideThumbnail, [guideMainMenuButton]);

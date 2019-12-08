@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    mailAuthenticateEndpoint: "https://hk8fwoi2r9.execute-api.ap-northeast-1.amazonaws.com/dev/authenticate",
+    mailAuthenticateEndpoint: "https://hk8fwoi2r9.execute-api.ap-northeast-1.amazonaws.com/dev/user/authentication",
     awsS3Region: "us-west-1",
     awsS3Name: "hakuhagu",
     mysqlLocation: "hakuhagu.czjhg6jtbyze.ap-northeast-1.rds.amazonaws.com",

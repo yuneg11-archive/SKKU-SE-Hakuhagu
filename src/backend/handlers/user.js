@@ -5,14 +5,28 @@ const database = require("../utils/database");
 const authenticator = require("../utils/authenticator");
 const responseTemplate = require("../responses/template");
 
+var mail;
+
 const registration = async (event) => {
   const userId = parser.getUserId(event);
   const parameters = parser.getParameters(event);
   const nickname = parameters["nickname"].origin;
-  const school_name = parameters["school_name"].origin;
+  const school_name = parameters["school_name"].value;
   const school_mail = parameters["school_mail"].origin;
   const timetable_image = parameters["timetable_image"].origin;
   const timetable = ""; // Todo: Process timetable_image and get JSON data
+
+  // const result = await database.registNewUser(userId, nickname, school_name, school_mail, timetable);
+  // if (result.success == true) {
+  //   mail = new Promise(async (resolve, reject) => {
+  //     await authenticator.sendAuthenticateMail(userId, school_mail);
+  //     console.log("Mail sended");
+  //     resolve();
+  //   });
+  //   return responseTemplate.userRegistrationSuccess(nickname);
+  // } else {
+  //   return responseTemplate.userRegistrationFail(result.message);
+  // }
 
   if (authenticator.authenticateUser(userId) == true) {
     return responseTemplate.userRegistrationFail("이미 등록된 사용자입니다.");

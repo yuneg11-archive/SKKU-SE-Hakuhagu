@@ -67,58 +67,20 @@ const uploadImages = async (directory, locations) => {
     results.push(result);
   }
   return results;
-
-
-
-  // const r1 = await new Promise((resolve, reject) => {
-  //   s3.listBuckets(function(err, data) {
-  //     if (err) {
-  //       console.log("Error in", err);
-  //       reject(err)
-  //     } else {
-  //       console.log("Success", data.Buckets);
-  //       resolve(data)
-  //     }
-  //   });
-  // });
-  // console.log(r1);
-  // return r1;
-
-  const result = await new Promise((resolve, reject) => {
-    s3.upload(image, (err, data) => {
-      if (err) {
-        // return {
-        //   success: false,
-        //   location: ""
-        // };
-        console.log(err);
-        reject(err);
-      } else {
-        // return {
-        //   success: true,
-        //   location: data.Location
-        // };
-        console.log(data);
-        resolve(data);
-      }
-    });
-  });
-  return result;
 };
 
 
 const checkUserAuth = async (userId) => {
   const sql = 'SELECT school_mail_auth FROM user WHERE userId = ?';
   const user = await query(sql, [userId]);
-  console.log(user);
 
   if (user.length == 0) {
     return false;
   } else {
     if (user[0] == 1) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 };
@@ -158,7 +120,7 @@ const registNewUser = async (userId, nickname, school_name, school_mail, timetab
   //                                     report_count: integer (0 at init),
   //                                     reliability_score: integer (0 at init) }
   var sql = 'INSERT INTO user(userId,nickname, school_name, school_mail, school_mail_auth, timetable, openprofile, report_count, reliability_score)VALUES(?,?,?,?,?,?,?,?,?)';
-  var params = ['testId2','testnick2', 'skku', 'skku.edu','1','testtimetable', 'testopenprofile.com', 3, 50];
+  var params = [userId, nickname, school_name, school_mail, '0', timetable, null, 0, 50];
 
   try {
     const insert = await query(sql, params);
