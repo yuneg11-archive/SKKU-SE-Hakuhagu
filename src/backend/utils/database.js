@@ -63,7 +63,19 @@ const uploadImages = async (directory, locations) => {
   }
   return results;
 };
+const generateToken = (seed="") => {
+  const tokenLength = 15;
+  const tokenArray = ['0','1','2','3','4','5','6','7','8','9',
+                      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
+  var token = "";
+  for (var i = 1; i < tokenLength; i++) {
+    token = token + tokenArray[Math.ceil(Math.random() * tokenArray.length) - 1];
+  }
+
+  return token;
+};
 
 const checkUserAuth = async (userId) => {
   const sql = 'SELECT school_mail_auth FROM user WHERE userId = ?';
@@ -191,6 +203,7 @@ const getUser = async (userId) => {
 
 // Placeholder
 const registNewItem = async (userId, item_name, item_price, item_detail, item_image) => {
+  const itemId = await generateToken();
   const imageurls = JSON.stringify(await uploadImages(itemId,item_image));
   var sql = 'INSERT INTO item(userId, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?)';
   var params = [userId, 'itemid', item_name, item_price, item_detail, imageurls, NOW()];
