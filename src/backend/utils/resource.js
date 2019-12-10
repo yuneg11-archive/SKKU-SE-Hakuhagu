@@ -31,5 +31,7 @@ module.exports = {
     itemDeleteBlockId: "5decfa26ffa74800014b098e", // Temp
     itemBuyBlockId: "5decfa26ffa74800014b098e", // Temp
     itemReportBlockId: "5decfa26ffa74800014b098e", // Temp
-    itemSellBlockId: "5decfa26ffa74800014b098e", // Temp
+    itemSellerContractBlockId: "5de3d4eaffa7480001988104",
+    userWithdrawBlockId: "5de3d56d8192ac0001d65d18", // Temp
+    itemSellerContractVerifyBlockId: "5de3d56d8192ac0001d65d18", // Temp
 };

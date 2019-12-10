@@ -14,8 +14,8 @@ module.exports.welcome = () => {
   // Construct seller card
   const sellerThumbnail = builder.getThumbnail(resource.sellerThumbnailUrl);
   const sellerItemRegistButton = builder.getButton("상품 등록", "block", "상품 등록", resource.sellerItemRegistBlockId);
-  const sellerItemListButton = builder.getButton("상품 목록", "block", "상품 목록", resource.sellerItemListBlockId);
-  const sellerContractButton = builder.getButton("판매자 거래 체결", "block", "판매자 거래 체결", resource.sellerContractBlockId);
+  const sellerItemListButton = builder.getButton("상품 목록", "block", "상품 목록", resource.sellerItemListBlockId, {mode: "list"});
+  const sellerContractButton = builder.getButton("판매자 거래 체결", "block", "판매자 거래 체결", resource.sellerItemListBlockId, {mode: "contract"});
   const sellerCardBody = builder.getBasicCardBody("판매", "상품을 판매합니다.", sellerThumbnail, [sellerItemRegistButton, sellerItemListButton, sellerContractButton]);
 
   // Construct user information card
@@ -27,4 +27,15 @@ module.exports.welcome = () => {
 
   // Build response
   return builder.buildResponse([builder.getCarousel("basicCard", [buyerCardBody, sellerCardBody, userInfoCardBody])], false);
+};
+
+module.exports.processFail = (errorTitle, errorMessage) => {
+  // Construct result card
+  const resultThumbnail = builder.getThumbnail(resource.itemRegistrationFailThumbnailUrl);
+  const resultTitle = errorTitle;
+  const resultDescription = errorMessage;
+  const resultCard = builder.getBasicCard(resultTitle, resultDescription, resultThumbnail);
+
+  // Build response
+  return builder.buildResponse([resultCard]);
 };

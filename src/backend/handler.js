@@ -127,9 +127,15 @@ module.exports.itemDetail = async (event) => {
   }
 };
 
-module.exports.qrcodeTest = async (event) => {
-  const re = await authenticator.generateQrcode("userId=awefoiewbuafwehweabu&itemId=eifbaif7382bvhdj&token=euhsnvjqifjekvne");
-  return builder.buildAWSResponse(re);
+module.exports.itemSellerContract = async (event) => {
+  if (await checkAuth(event) == true) {
+    const response = await itemHandler.sellerContract(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
 };
 
 module.exports.test = async (event) => {

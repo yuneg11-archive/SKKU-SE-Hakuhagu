@@ -67,11 +67,11 @@ functions:
       - http:
           path: item/detail
           method: post
-  qrcodeTest:
-    handler: handler.qrcodeTest
+  itemSellerContract:
+    handler: handler.itemSellerContract
     events:
       - http:
-          path: qrcode
+          path: item/contract/seller
           method: post
   test:
     handler: handler.test

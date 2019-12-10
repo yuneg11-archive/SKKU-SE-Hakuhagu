@@ -6,6 +6,7 @@ const itemResponse = require("./item");
 
 module.exports = {
   welcome: commonResponse.welcome,
+  processFail: commonResponse.processFail,
   userRegistration: userResponse.userRegistration,
   userRegistrationSuccess: userResponse.userRegistrationSuccess,
   userRegistrationFail: userResponse.userRegistrationFail,
@@ -16,5 +17,6 @@ module.exports = {
   itemRegistrationFail: itemResponse.itemRegistrationFail,
   itemListSuccess: itemResponse.itemListSuccess,
   itemListFail: itemResponse.itemListFail,
-  itemDetail: itemResponse.itemDetail
+  itemDetail: itemResponse.itemDetail,
+  itemSellerContractSuccess: itemResponse.itemSellerContractSuccess
 };
