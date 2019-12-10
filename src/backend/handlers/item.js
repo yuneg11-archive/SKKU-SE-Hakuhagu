@@ -30,7 +30,7 @@ const list = async (event) => {
   } else if (result.length == 0) {
     return responseTemplate.itemListFail("등록된 상품이 없습니다.");
   } else {
-    return responseTemplate.itemListSuccess(result);
+    return responseTemplate.itemListSuccess(result, "list");
   }
 };
 
@@ -44,7 +44,7 @@ const searchCategory = async (event) => {
   } else if (result.length == 0) {
     return responseTemplate.itemListFail("등록된 상품이 없습니다.");
   } else {
-    return responseTemplate.itemListSuccess(result);
+    return responseTemplate.itemListSuccess(result, "search");
   }
 };
 
@@ -58,26 +58,33 @@ const searchKeyword = async (event) => {
   } else if (result.length == 0) {
     return responseTemplate.itemListFail("등록된 상품이 없습니다.");
   } else {
-    return responseTemplate.itemListSuccess(result);
+    return responseTemplate.itemListSuccess(result, "search");
   }
 };
 
 const detail = async (event) => {
   const extras = parser.getExtras(event);
+  const mode = extras["mode"];
+  const userId = extras["userId"];
   const itemId = extras["itemId"];
 
   const item = await database.getItem(itemId);
   if (item != null) {
-    return responseTemplate.itemDetail(item);
+    const user = (mode == "search" ? await database.getUser(userId) : null);
+    if (user != null) {
+      return responseTemplate.itemDetail(item, mode, user);
+    } else {
+      return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
+    }
   } else {
     return responseTemplate.itemListFail("상품 조회에 실패했습니다.");
   }
 };
 
 module.exports = {
-    registration,
-    list,
-    searchCategory,
-    searchKeyword,
-    detail
+  registration,
+  list,
+  searchCategory,
+  searchKeyword,
+  detail
 };

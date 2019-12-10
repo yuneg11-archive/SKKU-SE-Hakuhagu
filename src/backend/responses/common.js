@@ -26,5 +26,5 @@ module.exports.welcome = () => {
   const userInfoCardBody = builder.getBasicCardBody("회원 정보", "회원 정보를 조회하거나 수정합니다.", userInfoThumbnail, [userInfoQueryButton, userInfoOpenProfileButton, userInfoTimeTableButton]);
 
   // Build response
-  return builder.buildResponse([builder.getCarousel("basicCard", [buyerCardBody, sellerCardBody, userInfoCardBody])]);
+  return builder.buildResponse([builder.getCarousel("basicCard", [buyerCardBody, sellerCardBody, userInfoCardBody])], false);
 };

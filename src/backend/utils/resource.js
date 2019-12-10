@@ -27,4 +27,9 @@ module.exports = {
     userInfoQueryBlockId: "5de3d56d8192ac0001d65d18",
     userInfoOpenProfileBlockId: "5de3d5958192ac0001d65d1a",
     userInfoTimeTableBlockId: "5de3d59d8192ac0001d65d1c",
+    itemDetailBlockId: "5decfa26ffa74800014b098e",
+    itemDeleteBlockId: "5decfa26ffa74800014b098e", // Temp
+    itemBuyBlockId: "5decfa26ffa74800014b098e", // Temp
+    itemReportBlockId: "5decfa26ffa74800014b098e", // Temp
+    itemSellBlockId: "5decfa26ffa74800014b098e", // Temp
 };
