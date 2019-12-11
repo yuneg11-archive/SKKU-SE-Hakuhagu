@@ -36,7 +36,11 @@ const generateToken = (seed="") => {
 
 const getContractQrcode = (userId, itemId) => {
   const token = generateToken();
-  const info = "userId=" + userId + "&itemId=" + itemId + "&token=" + token;
+  const info = JSON.stringify({
+    userId: userId,
+    itemId: itemId,
+    token: token
+  });
   const qrcodePath = generateQrcode(info);
   return {
     token: token,

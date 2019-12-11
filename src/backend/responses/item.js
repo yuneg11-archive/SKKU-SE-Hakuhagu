@@ -52,7 +52,7 @@ module.exports.itemListSuccess = (itemList, mode="search") => {
         buttons.push(builder.getButton("구매", "block", "구매", resource.itemBuyBlockId, {userId: resultUserId, itemId: resultItemId}));
         buttons.push(builder.getButton("상세정보", "block", "상세정보", resource.itemDetailBlockId, {userId: resultUserId, itemId: resultItemId, mode: "search"}));
       } else if (mode == "contract") {
-        buttons.push(builder.getButton("판매", "block", "판매", resource.itemSellerContractBlockId, {itemId: resultItemId}));
+        buttons.push(builder.getButton("판매", "block", "판매", resource.sellerContractBlockId, {itemId: resultItemId}));
       }
       bodys.push(builder.getCommerceCardBody(resultTitle, resultDescription, resultPrice, resultThumbnail, resultNickname, buttons));
     }
@@ -96,4 +96,15 @@ module.exports.itemSellerContractSuccess = (qrcodePath, itemId) => {
   const resultOkButton = builder.getButton("스캔완료", "block", "스캔완료", resource.itemSellerContractVerifyBlockId, {itemId: itemId});
   const basicCard = builder.getBasicCard("", resultText, resultThumbnail, [resultOkButton]);
   return builder.buildResponse([basicCard]);
+};
+
+module.exports.itemBuyerContractSuccess = (item) => {
+  const resultThumbnail = builder.getThumbnail(item.item_image[0]);
+  const resultTitle = item.item_name;
+  const resultDescription = item.item_detail + "\n" + item.item_date;
+  const resultPrice = item.item_price;
+  const resultNickname = item.nickname;
+  const commerceCard = builder.getCommerceCard(resultTitle, resultDescription, resultPrice, resultThumbnail, resultNickname);
+  const simpleTextCard = builder.getSimpleText("상품 구매가 완료되었습니다.");
+  return builder.buildResponse([commerceCard, simpleTextCard]);
 };

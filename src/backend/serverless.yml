@@ -73,6 +73,12 @@ functions:
       - http:
           path: item/contract/seller
           method: post
+  itemBuyerContract:
+    handler: handler.itemBuyerContract
+    events:
+      - http:
+          path: item/contract/buyer
+          method: post
   test:
     handler: handler.test
     events:

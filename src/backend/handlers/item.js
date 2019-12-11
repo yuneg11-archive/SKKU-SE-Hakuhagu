@@ -104,11 +104,32 @@ const sellerContract = async (event) => {
   }
 };
 
+const buyerContract = async (event) => {
+  const userId = parser.getUserId(event);
+  const parameters = parser.getParameters(event);
+  const item_data = parser.getQrcodeData(parameters["item_qrcode"].value);
+  const itemUserId = item_data.userId;
+  const itemId = item_data.itemId;
+
+  const item = await database.getItem(itemId);
+  if (item != null) {
+    const result = await database.registNewDeal(itemUserId, userId, itemId, item.item_name);
+    if (result.success == true) {
+      return responseTemplate.itemBuyerContractSuccess(item);
+    } else {
+      return responseTemplate.processFail("상품 구매 실패", "상품 구매 등록에 실패했습니다.");
+    }
+  } else {
+    return responseTemplate.processFail("상품 구매 실패", "상품 구매 등록에 실패했습니다.");
+  }
+};
+
 module.exports = {
   registration,
   list,
   searchCategory,
   searchKeyword,
   detail,
-  sellerContract
+  sellerContract,
+  buyerContract
 };

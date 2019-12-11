@@ -138,6 +138,17 @@ module.exports.itemSellerContract = async (event) => {
   }
 };
 
+module.exports.itemBuyerContract = async (event) => {
+  if (await checkAuth(event) == true) {
+    const response = await itemHandler.buyerContract(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
+};
+
 module.exports.test = async (event) => {
   const body = parser.getBody(event);
   const userId = parser.getUserId(event);

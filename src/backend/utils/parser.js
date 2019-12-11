@@ -36,6 +36,10 @@ const getExtras = (event) => {
   return getBody(event).action.clientExtra;
 };
 
+const getQrcodeData = (qrdata) => {
+  return JSON.parse(JSON.parse(qrdata).barcodeData);
+}
+
 module.exports = {
   getBody,
   getUserId,
@@ -45,5 +49,6 @@ module.exports = {
   getKeys,
   getPrice,
   getImageUrls,
-  getExtras
+  getExtras,
+  getQrcodeData
 }

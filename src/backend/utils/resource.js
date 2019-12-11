@@ -20,7 +20,7 @@ module.exports = {
     registrationBlockId: "5dc50c568192ac0001c5d1f0",
     buyerSearchCategoryBlockId: "5de3d521ffa7480001988108",
     buyerSearchNameBlockId: "5de3d534ffa748000198810a",
-    buyerContractBlockId: "5de3d561b617ea0001cb07a2",
+    buyerContractBlockId: "5df013ac92690d0001fbfb7a",
     sellerItemRegistBlockId: "5de3ccb3b617ea0001cb0792",
     sellerItemListBlockId: "5de3d4beffa7480001988102",
     sellerContractBlockId: "5de3d4eaffa7480001988104",
@@ -31,7 +31,6 @@ module.exports = {
     itemDeleteBlockId: "5decfa26ffa74800014b098e", // Temp
     itemBuyBlockId: "5decfa26ffa74800014b098e", // Temp
     itemReportBlockId: "5decfa26ffa74800014b098e", // Temp
-    itemSellerContractBlockId: "5de3d4eaffa7480001988104",
     userWithdrawBlockId: "5de3d56d8192ac0001d65d18", // Temp
     itemSellerContractVerifyBlockId: "5de3d56d8192ac0001d65d18", // Temp
 };

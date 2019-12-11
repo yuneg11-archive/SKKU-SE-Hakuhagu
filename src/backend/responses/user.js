@@ -48,7 +48,7 @@ module.exports.userInformation = (nickname, school_name, school_mail, openprofil
   const infoSchoolMailList = builder.getListItem(school_mail, "학교 이메일");
   const infoOpenProfileList = builder.getListItem(openprofile, "오픈프로필 주소");
   const infoReliabilityScoreList = builder.getListItem(reliability_score, "신뢰도");
-  const infoOpenProfileButton = builder.getButton("오픈프로필로 가기", "webLink", openprofile);
+  const infoOpenProfileButton = builder.getButton("오픈프로필로", "webLink", openprofile);
   const infoWithdrawButton = builder.getButton("회원 탈퇴", "block", "회원 탈퇴", resource.userWithdrawBlockId);
   const infoCard = builder.getListCard(infoTitle, "", [infoNicknameList, infoSchoolNameList, infoSchoolMailList, infoOpenProfileList, infoReliabilityScoreList],
                                                       [infoOpenProfileButton, infoWithdrawButton]);
