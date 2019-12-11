@@ -259,9 +259,14 @@ const setOpenprofile = async (userId, openprofile) =>{
 
 const setReportcount = async (userId) => {
   var sql = 'UPDATE user SET report_count = report_count + 1 WHERE userId = ?';
+  var sql2 = 'SELECT report_count FROM user WHERE userId = ?';
   var params = [userId];
    try {
     const update = await query(sql, params);
+     const report_count = await query(sql2, params);
+     if (report_count % 3 == 0){
+       await downReliability(userId);
+     }
     console.log(update);
     return {
       success: true,
