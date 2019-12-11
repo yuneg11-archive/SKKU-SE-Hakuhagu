@@ -109,6 +109,12 @@ functions:
       - http:
           path: user/withdraw
           method: post
+  userReport:
+    handler: handler.userReport
+    events:
+      - http:
+          path: user/report
+          method: post
   test:
     handler: handler.test
     events:

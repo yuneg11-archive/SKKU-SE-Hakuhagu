@@ -30,7 +30,7 @@ module.exports = {
     itemDetailBlockId: "5decfa26ffa74800014b098e",
     itemDeleteWarningBlockId: "5df085bdffa74800014b1f92",
     itemDeleteBlockId: "5df0a89292690d0001fc015b",
-    itemReportBlockId: "5decfa26ffa74800014b098e", // Temp
+    userReportBlockId: "5df0c6058192ac00017876c8",
     userWithdrawWarningBlockId: "5df0be478192ac00017876ac",
     userWithdrawBlockId: "5df0be598192ac00017876ae",
 };

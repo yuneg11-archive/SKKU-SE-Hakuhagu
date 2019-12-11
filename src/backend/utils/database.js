@@ -150,7 +150,6 @@ const registNewUser = async (userId, nickname, school_name, school_mail) => {
   }
 };
 
-// Placeholder
 const getUser = async (userId) => {
   var sql = 'SELECT * FROM user WHERE userId = ?';
   try {
@@ -194,12 +193,13 @@ const registNewItem = async (userId, item_category, item_name, item_price, item_
 };
 
 const getItem = async (itemId) => {
-  var sql = 'SELECT user.nickname, item.* FROM item INNER JOIN user ON item.userId = user.userId WHERE itemId = ?';
+  var sql = 'SELECT user.openprofile, user.nickname, item.* FROM item INNER JOIN user ON item.userId = user.userId WHERE itemId = ?';
   try{
     const pickitem = await query(sql, [itemId]);
     return {
       nickname: pickitem[0].nickname,
       userId: pickitem[0].userId,
+      openprofile: pickitem[0].openprofile,
       item_category: pickitem[0].category,
       itemId: pickitem[0].itemId,
       item_name: pickitem[0].item_name,
@@ -257,7 +257,7 @@ const setOpenprofile = async (userId, openprofile) =>{
   }
 };
 
-const setReportcount = async (userId) => {
+const reportUser = async (userId) => {
   var sql = 'UPDATE user SET report_count = report_count + 1 WHERE userId = ?';
   var params = [userId];
    try {
@@ -502,5 +502,6 @@ module.exports = {
   deleteItem,
   deleteUser,
   getTransaction,
-  setOpenprofile
+  setOpenprofile,
+  reportUser
 }

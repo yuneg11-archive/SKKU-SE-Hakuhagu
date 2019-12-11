@@ -26,5 +26,6 @@ module.exports = {
   userOpenprofileSuccess: userResponse.userOpenprofileSuccess,
   userWithdrawWarning: userResponse.userWithdrawWarning,
   userWithdrawOk: userResponse.userWithdrawOk,
-  userWithdrawCancel: userResponse.userWithdrawCancel
+  userWithdrawCancel: userResponse.userWithdrawCancel,
+  userReport: userResponse.userReport
 };

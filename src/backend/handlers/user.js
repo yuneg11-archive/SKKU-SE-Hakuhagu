@@ -90,11 +90,25 @@ const withdraw = async (event) => {
   }
 };
 
+const report = async (event) => {
+  const extras = parser.getExtras(event);
+  const targetUserId = extras["targetUserId"];
+  const targetNickname = extras["targetNickname"];
+
+  const result = await database.reportUser(targetUserId);
+  if (result.success == true) {
+    return responseTemplate.userReport(targetNickname);
+  } else {
+    return responseTemplate.processFail("신고 실패", "신고에 실패하였습니다.");
+  }
+};
+
 module.exports = {
   registration,
   authentication,
   information,
   openprofile,
   withdrawWarning,
-  withdraw
+  withdraw,
+  report
 };

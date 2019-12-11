@@ -87,3 +87,8 @@ module.exports.userWithdrawCancel = () => {
   const textCard = builder.getSimpleText("회원 탈퇴를 취소했습니다.");
   return builder.buildResponse([textCard]);
 };
+
+module.exports.userReport = (user_name) => {
+  const textCard = builder.getSimpleText(user_name + "(을)를 신고했습니다.");
+  return builder.buildResponse([textCard]);
+};

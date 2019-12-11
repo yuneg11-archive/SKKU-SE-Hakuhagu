@@ -75,20 +75,26 @@ module.exports.itemListFail = (errorMessage) => {
   return builder.buildResponse([resultCard]);
 };
 
-module.exports.itemDetail = (item, mode="list", user=null) => {
+module.exports.itemDetail = (item, mode="list") => {
   // Construct registration guide
   const resultThumbnail = builder.getThumbnail(item.item_image[0], true, 500, 300);
-  const resultUserId = (user != null ? user.userId : null);
-  const resultItemId = item.itemId;
   const resultTitle = item.item_name + "(" + item.item_price + "원)";
   const resultDescription = item.item_detail + "\n"+ item.item_date;
-  const resultMainMenuButton = (mode == "list" ? builder.getButton("삭제", "block", "삭제", resource.itemDeleteWarningBlockId, {itemId: item.itemId, item_image: item.item_image[0]})
-                                               : builder.getButton("판매자 연결", "webLink", item.openprofile));
-  const resultCard1 = builder.getBasicCardBody(resultTitle, resultDescription, "", [resultMainMenuButton, resultMainMenuButton]);
+  const resultButtons = [];
+  if (mode == "list") {
+    resultButtons.push(builder.getButton("삭제", "block", "삭제", resource.itemDeleteWarningBlockId, {itemId: item.itemId, item_image: item.item_image[0]}));
+  } else if (mode == "search") {
+    console.log(item.openprofile);
+    if(item.openprofile) {
+      resultButtons.push(builder.getButton("판매자 연결", "webLink", item.openprofile));
+    }
+    resultButtons.push(builder.getButton("신고", "block", "신고", resource.userReportBlockId, {targetUserId: item.userId, targetNickname: item.nickname}));
+  }
+  const resultCard1 = builder.getBasicCardBody(resultTitle, resultDescription, "", resultButtons);
   const resultCard2 = builder.getBasicCardBody("", "", resultThumbnail);
 
   // Build response
-  return builder.buildResponse([builder.getCarousel("basicCard", [resultCard1, resultCard2, resultCard2])]);
+  return builder.buildResponse([builder.getCarousel("basicCard", [resultCard1, resultCard2])]);
 };
 
 module.exports.itemSellerContractSuccess = (qrcodePath, itemId) => {

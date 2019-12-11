@@ -106,6 +106,17 @@ module.exports.userWithdraw = async (event) => {
   }
 };
 
+module.exports.userReport = async (event) => {
+  if (await checkAuth(event) != null) {
+    const response = await userHandler.report(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
+};
+
 module.exports.itemRegistration = async (event) => {
   if (event.source === "serverless-plugin-warmup") {
     console.log("WarmUP");
