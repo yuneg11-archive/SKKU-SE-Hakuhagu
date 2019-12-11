@@ -48,7 +48,7 @@ module.exports.userInformation = (nickname, school_name, school_mail, openprofil
   const infoOpenProfileList = builder.getListItem(openprofile, "오픈프로필 주소");
   const infoReliabilityScoreList = builder.getListItem(reliability_score, "신뢰도");
   const infoOpenProfileButton = builder.getButton("오픈프로필", "webLink", openprofile);
-  const infoWithdrawButton = builder.getButton("회원 탈퇴", "block", "회원 탈퇴", resource.userWithdrawBlockId);
+  const infoWithdrawButton = builder.getButton("회원 탈퇴", "block", "회원 탈퇴", resource.userWithdrawWarningBlockId);
   const infoCard = builder.getListCard(infoTitle, "", [infoNicknameList, infoSchoolNameList, infoSchoolMailList, infoOpenProfileList, infoReliabilityScoreList],
                                                       [infoOpenProfileButton, infoWithdrawButton]);
 
@@ -68,4 +68,22 @@ module.exports.userOpenprofileSuccess = (openprofile) => {
   const listItem = builder.getListItem(openprofile, "오픈프로필 링크");
   const listCard = builder.getListCard("오픈프로필 등록 성공", "", [listItem]);
   return builder.buildResponse([listCard]);
+};
+
+module.exports.userWithdrawWarning = () => {
+  const okButton = builder.getButton("확인", "block", "확인", resource.userWithdrawBlockId, {action: "ok"});
+  const cancelButton = builder.getButton("취소", "block", "취소", resource.userWithdrawBlockId, {action: "cancel"});
+  const basicCard = builder.getBasicCard("정말 회원을 탈퇴하시겠습니까?", "", "", [okButton, cancelButton]);
+  return builder.buildResponse([basicCard], false);
+};
+
+module.exports.userWithdrawOk = () => {
+  const resultThumbnail = builder.getThumbnail(resource.itemRegistrationSuccessThumbnailUrl);
+  const basicCard = builder.getBasicCard("회원에서 탈퇴했습니다.", "", resultThumbnail);
+  return builder.buildResponse([basicCard]);
+};
+
+module.exports.userWithdrawCancel = () => {
+  const textCard = builder.getSimpleText("회원 탈퇴를 취소했습니다.");
+  return builder.buildResponse([textCard]);
 };

@@ -69,9 +69,32 @@ const openprofile = async (event) => {
   }
 };
 
+const withdrawWarning = async (event) => {
+  return responseTemplate.userWithdrawWarning();
+};
+
+const withdraw = async (event) => {
+  const userId = parser.getUserId(event);
+  const extras = parser.getExtras(event);
+  const action = extras["action"];
+
+  if (action == "ok") {
+    const result = await database.deleteUser(userId);
+    if (result.success == true) {
+      return responseTemplate.userWithdrawOk();
+    } else {
+      return responseTemplate.processFail("회원 탈퇴 실패", "회원 탈퇴에 실패하였습니다.");
+    }
+  } else {
+    return responseTemplate.userWithdrawCancel();
+  }
+};
+
 module.exports = {
   registration,
   authentication,
   information,
-  openprofile
+  openprofile,
+  withdrawWarning,
+  withdraw
 };

@@ -97,6 +97,18 @@ functions:
       - http:
           path: user/openprofile
           method: post
+  userWithdrawWarning:
+    handler: handler.userWithdrawWarning
+    events:
+      - http:
+          path: user/withdraw/warning
+          method: post
+  userWithdraw:
+    handler: handler.userWithdraw
+    events:
+      - http:
+          path: user/withdraw
+          method: post
   test:
     handler: handler.test
     events:

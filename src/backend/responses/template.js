@@ -23,5 +23,8 @@ module.exports = {
   itemDeleteWarning: itemResponse.itemDeleteWarning,
   itemDeleteOk: itemResponse.itemDeleteOk,
   itemDeleteCancel: itemResponse.itemDeleteCancel,
-  userOpenprofileSuccess: userResponse.userOpenprofileSuccess
+  userOpenprofileSuccess: userResponse.userOpenprofileSuccess,
+  userWithdrawWarning: userResponse.userWithdrawWarning,
+  userWithdrawOk: userResponse.userWithdrawOk,
+  userWithdrawCancel: userResponse.userWithdrawCancel
 };

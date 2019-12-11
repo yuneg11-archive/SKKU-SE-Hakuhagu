@@ -132,7 +132,6 @@ const deleteWarning = async (event) => {
   return responseTemplate.itemDeleteWarning(itemId, item_image);
 };
 
-// Todo
 const deleteOk = async (event) => {
   const extras = parser.getExtras(event);
   const itemId = extras["itemId"];
