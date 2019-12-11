@@ -30,8 +30,9 @@ module.exports.verifyEmail = async (event) => {
 // Skill
 
 module.exports.welcome = async (event) => {
-  if (await checkAuth(event) != null) {
-    const response = responseTemplate.welcome();
+  const auth = await checkAuth(event);
+  if (auth != null) {
+    const response = responseTemplate.welcome(auth);
     console.log(response);
     return response;
   } else {

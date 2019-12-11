@@ -22,5 +22,6 @@ module.exports = {
   itemBuyerContractSuccess: itemResponse.itemBuyerContractSuccess,
   itemDeleteWarning: itemResponse.itemDeleteWarning,
   itemDeleteOk: itemResponse.itemDeleteOk,
-  itemDeleteCancel: itemResponse.itemDeleteCancel
+  itemDeleteCancel: itemResponse.itemDeleteCancel,
+  userOpenprofileSuccess: userResponse.userOpenprofileSuccess
 };

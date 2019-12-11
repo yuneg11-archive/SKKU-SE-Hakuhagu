@@ -63,3 +63,9 @@ module.exports.userAuthenticationSuccess = () => {
 module.exports.userAuthenticationFail = () => {
   return builder.buildAWSResponse("Mail authentication fail!");
 };
+
+module.exports.userOpenprofileSuccess = (openprofile) => {
+  const listItem = builder.getListItem(openprofile, "오픈프로필 링크");
+  const listCard = builder.getListCard("오픈프로필 등록 성공", "", [listItem]);
+  return builder.buildResponse([listCard]);
+};

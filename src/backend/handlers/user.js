@@ -56,16 +56,16 @@ const information = async (event) => {
   }
 };
 
-// Todo
 const openprofile = async (event) => {
   const userId = parser.getUserId(event);
+  const parameters = parser.getParameters(event);
+  const user_openprofile = parameters["user_openprofile"].origin;
 
-  const user = await database.getUser(userId);
-  if (user == null) {
-    return responseTemplate.userRegistration();
+  const result = await database.setOpenprofile(userId, user_openprofile);
+  if (result.success == true) {
+    return responseTemplate.userOpenprofileSuccess(user_openprofile);
   } else {
-    const openprofile = (user.openprofile == null ? "-" : user.openprofile);
-    return responseTemplate.userInformation(user.nickname, user.school_name, user.school_mail, openprofile, user.reliability_score);
+    return responseTemplate.processFail("오픈프로필 등록 실패", "오픈프로필 등록에 실패하였습니다.");
   }
 };
 

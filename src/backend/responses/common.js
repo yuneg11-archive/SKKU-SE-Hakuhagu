@@ -3,7 +3,7 @@
 const builder = require("../utils/builder");
 const resource = require("../utils/resource");
 
-module.exports.welcome = () => {
+module.exports.welcome = (user) => {
   // Construct buyer card
   const buyerThumbnail = builder.getThumbnail(resource.buyerThumbnailUrl);
   const buyerSearchTextButton = builder.getButton("상품 카테고리 검색", "block", "상품 카테고리 검색", resource.buyerSearchCategoryBlockId);
@@ -13,7 +13,8 @@ module.exports.welcome = () => {
 
   // Construct seller card
   const sellerThumbnail = builder.getThumbnail(resource.sellerThumbnailUrl);
-  const sellerItemRegistButton = builder.getButton("상품 등록", "block", "상품 등록", resource.sellerItemRegistBlockId);
+  const registLink =  (user.openprofile ? resource.sellerItemRegistBlockId : resource.userInfoOpenProfileBlockId);
+  const sellerItemRegistButton = builder.getButton("상품 등록", "block", "상품 등록", registLink);
   const sellerItemListButton = builder.getButton("상품 목록", "block", "상품 목록", resource.sellerItemListBlockId, {mode: "list"});
   const sellerContractButton = builder.getButton("판매자 거래 체결", "block", "판매자 거래 체결", resource.sellerItemListBlockId, {mode: "contract"});
   const sellerCardBody = builder.getBasicCardBody("판매", "상품을 판매합니다.", sellerThumbnail, [sellerItemRegistButton, sellerItemListButton, sellerContractButton]);

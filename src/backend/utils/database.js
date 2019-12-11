@@ -501,5 +501,6 @@ module.exports = {
   registNewDeal,
   deleteItem,
   deleteUser,
-  getTransaction
+  getTransaction,
+  setOpenprofile
 }

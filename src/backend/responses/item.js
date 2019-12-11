@@ -49,7 +49,7 @@ module.exports.itemListSuccess = (itemList, mode="search") => {
         buttons.push(builder.getButton("상세정보", "block", "상세정보", resource.itemDetailBlockId, {itemId: resultItemId, mode: "list"}));
         buttons.push(builder.getButton("삭제", "block", "삭제", resource.itemDeleteWarningBlockId, {itemId: resultItemId, item_image: item.item_image[0]}));
       } else if (mode == "search") {
-        buttons.push(builder.getButton("구매", "block", "구매", resource.itemBuyBlockId, {userId: resultUserId, itemId: resultItemId}));
+        buttons.push(builder.getButton("판매자 연결", "webLink", (item.openprofile == null ? "" : item.openprofile)));
         buttons.push(builder.getButton("상세정보", "block", "상세정보", resource.itemDetailBlockId, {userId: resultUserId, itemId: resultItemId, mode: "search"}));
       } else if (mode == "contract") {
         buttons.push(builder.getButton("판매", "block", "판매", resource.sellerContractBlockId, {itemId: resultItemId}));
@@ -83,7 +83,7 @@ module.exports.itemDetail = (item, mode="list", user=null) => {
   const resultTitle = item.item_name + "(" + item.item_price + "원)";
   const resultDescription = item.item_detail + "\n"+ item.item_date;
   const resultMainMenuButton = (mode == "list" ? builder.getButton("삭제", "block", "삭제", resource.itemDeleteWarningBlockId, {itemId: item.itemId, item_image: item.item_image[0]})
-                                               : builder.getButton("구매", "block", "구매", resource.itemBuyBlockId, {userId: resultUserId, itemId: resultItemId}));
+                                               : builder.getButton("판매자 연결", "webLink", item.openprofile));
   const resultCard1 = builder.getBasicCardBody(resultTitle, resultDescription, "", [resultMainMenuButton, resultMainMenuButton]);
   const resultCard2 = builder.getBasicCardBody("", "", resultThumbnail);
 
