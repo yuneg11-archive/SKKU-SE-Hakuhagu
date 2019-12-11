@@ -83,7 +83,7 @@ const checkUserAuth = async (userId) => {
   const user = await query(sql, [userId]);
 
   if (user.length == 0) {
-    return NULL;
+    return null;
   } else {
     if (user[0].school_mail_auth == 1) {
       return {
@@ -97,7 +97,7 @@ const checkUserAuth = async (userId) => {
       reliability_score: user[0].reliability_score
     };
     } else {
-      return NULL;
+      return null;
     }
   }
 };
@@ -555,5 +555,6 @@ module.exports = {
   registNewDeal,
   deleteItem,
   deleteUser,
-  getDeal
+  getDeal,
+  getTransaction
 }
