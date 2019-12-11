@@ -79,16 +79,25 @@ const generateToken = (seed="") => {
 };
 
 const checkUserAuth = async (userId) => {
-  const sql = 'SELECT school_mail_auth FROM user WHERE userId = ?';
+  const sql = 'SELECT * FROM user WHERE userId = ?';
   const user = await query(sql, [userId]);
 
   if (user.length == 0) {
-    return false;
+    return NULL;
   } else {
     if (user[0].school_mail_auth == 1) {
-      return true;
+      return {
+      userId: user[0].userId,
+      nickname: user[0].nickname,
+      school_name: user[0].school_name,
+      school_mail: user[0].school_mail,
+      school_mail_auth: user[0].school_mail_auth,
+      openprofile: user[0].openprofile,
+      report_count: user[0].report_count,
+      reliability_score: user[0].reliability_score
+    };
     } else {
-      return false;
+      return NULL;
     }
   }
 };
@@ -140,19 +149,18 @@ const authPendingAuthentication = async (userId, token) => {
 };
 
 // Placeholder
-const registNewUser = async (userId, nickname, school_name, school_mail, timetable) => {
+const registNewUser = async (userId, nickname, school_name, school_mail) => {
   // userId: string, nickname: string, school_name: string, school_mail: string, timetable: JSON object
   // Todo: Create new user with scheme { userId: string,
   //                                     nickname: string,
   //                                     school_name: string,
   //                                     school_mail: string,
   //                                     school_mail_auth: bool (false at init),
-  //                          caution -> timetable: stringfied JSON (use JSON.stringfy()),
   //                                     openprofile: string (Null at init),
   //                                     report_count: integer (0 at init),
   //                                     reliability_score: integer (0 at init) }
-  var sql = 'INSERT INTO user(userId,nickname, school_name, school_mail, school_mail_auth, timetable, openprofile, report_count, reliability_score)VALUES(?,?,?,?,?,?,?,?,?)';
-  var params = [userId, nickname, school_name, school_mail, '0', timetable, null, 0, 50];
+  var sql = 'INSERT INTO user(userId,nickname, school_name, school_mail, school_mail_auth, openprofile, report_count, reliability_score)VALUES(?,?,?,?,?,?,?,?,?)';
+  var params = [userId, nickname, school_name, school_mail, '0', null, 0, 50];
 
   try {
     const insert = await query(sql, params);
@@ -181,7 +189,6 @@ const getUser = async (userId) => {
       school_name: pickuser[0].school_name,
       school_mail: pickuser[0].school_mail,
       school_mail_auth: pickuser[0].school_mail_auth,
-      timetable: "",//JSON.parse(pickuser[0].timetable),
       openprofile: pickuser[0].openprofile,
       report_count: pickuser[0].report_count,
       reliability_score: pickuser[0].reliability_score
@@ -195,7 +202,6 @@ const getUser = async (userId) => {
   //                                 school_name: string,
   //                                 school_mail: string,
   //                                 school_mail_auth: bool,
-  //                      caution -> timetable: JSON (use JSON.parse()),
   //                                 openprofile: string,
   //                                 report_count: integer,
   //                                 reliability_score: integer }
@@ -242,10 +248,11 @@ const getItem = async (itemId) => {
   //                                 item_detail: string,
   //                      caution -> item_image: JSON (use JSON.parse()),
   //                                 item_date: date }
-  var sql = 'SELECT * FROM item WHERE itemId = ?';
+  var sql = 'SELECT user.nickname, item.* FROM item INNER JOIN user ON item.userId = user.userId WHERE itemId = ?';
   try{
     const pickitem = await query(sql, [itemId]);
     return {
+      nickname: pickitem[0].nickname,
       userId: pickitem[0].userId,
       item_category: pickitem[0].category,
       itemId: pickitem[0].itemId,
@@ -419,6 +426,25 @@ const registNewDeal = async(sell_id, buy_id, itemId, item_name) => {
 const deleteItem = async(itemId) => {
   var sql = 'DELETE FROM item WHERE itemId = ?';
   var params = [itemId];
+  try {
+    const deletion = await query(sql, params);
+    console.log(deletion);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    console.log(err);
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+};
+
+const deleteUser = async(userId) => {
+  var sql = 'DELETE FROM user WHERE userId = ?';
+  var params = [userId];
   try {
     const deletion = await query(sql, params);
     console.log(deletion);
