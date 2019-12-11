@@ -124,6 +124,11 @@ const buyerContract = async (event) => {
   }
 };
 
+const deleteWarning = async (event) => {
+  const userId = parser.getUserId(event);
+  return responseTemplate.processFail("상품 구매 실패", "상품 구매 등록에 실패했습니다.");
+};
+
 module.exports = {
   registration,
   list,
@@ -131,5 +136,6 @@ module.exports = {
   searchKeyword,
   detail,
   sellerContract,
-  buyerContract
+  buyerContract,
+  deleteWarning
 };

@@ -26,7 +26,7 @@ module.exports = {
     sellerContractBlockId: "5de3d4eaffa7480001988104",
     userInfoQueryBlockId: "5de3d56d8192ac0001d65d18",
     userInfoOpenProfileBlockId: "5de3d5958192ac0001d65d1a",
-    userInfoTimeTableBlockId: "5de3d59d8192ac0001d65d1c",
+    userInfoContractListBlockId: "5de3d59d8192ac0001d65d1c",
     itemDetailBlockId: "5decfa26ffa74800014b098e",
     itemDeleteBlockId: "5decfa26ffa74800014b098e", // Temp
     itemBuyBlockId: "5decfa26ffa74800014b098e", // Temp

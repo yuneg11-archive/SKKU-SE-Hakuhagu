@@ -79,6 +79,12 @@ functions:
       - http:
           path: item/contract/buyer
           method: post
+  itemDeleteWarning:
+    handler: handler.itemDeleteWarning
+    events:
+      - http:
+          path: item/delete/warning
+          method: post
   test:
     handler: handler.test
     events:

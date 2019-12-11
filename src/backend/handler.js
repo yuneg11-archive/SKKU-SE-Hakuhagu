@@ -149,6 +149,17 @@ module.exports.itemBuyerContract = async (event) => {
   }
 };
 
+module.exports.itemDeleteWarning = async (event) => {
+  if (await checkAuth(event) == true) {
+    const response = await itemHandler.deleteWarning(event);
+    console.log(response);
+    return response;
+  } else {
+    console.log("Auth fail");
+    return getAuthFailResponse();
+  }
+};
+
 module.exports.test = async (event) => {
   const body = parser.getBody(event);
   const userId = parser.getUserId(event);

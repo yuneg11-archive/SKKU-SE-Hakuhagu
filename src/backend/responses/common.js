@@ -22,7 +22,7 @@ module.exports.welcome = () => {
   const userInfoThumbnail = builder.getThumbnail(resource.userInfoThumbnailUrl);
   const userInfoQueryButton = builder.getButton("회원 정보 조회", "block", "회원 정보 조회", resource.userInfoQueryBlockId);
   const userInfoOpenProfileButton = builder.getButton("오픈프로필 링크 수정", "block", "오픈프로필 링크 수정", resource.userInfoOpenProfileBlockId);
-  const userInfoTimeTableButton = builder.getButton("시간표 수정", "block", "시간표 수정", resource.userInfoTimeTableBlockId);
+  const userInfoTimeTableButton = builder.getButton("거래기록 조회", "block", "거래기록 조회", resource.userInfoContractListBlockId);
   const userInfoCardBody = builder.getBasicCardBody("회원 정보", "회원 정보를 조회하거나 수정합니다.", userInfoThumbnail, [userInfoQueryButton, userInfoOpenProfileButton, userInfoTimeTableButton]);
 
   // Build response

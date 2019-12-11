@@ -13,15 +13,13 @@ const registration = async (event) => {
   const nickname = parameters["nickname"].origin;
   const school_name = parameters["school_name"].value;
   const school_mail = parameters["school_mail"].origin;
-  const timetable_image = parameters["timetable_image"].origin;
-  const timetable = ""; // Todo: Process timetable_image and get JSON data
 
   if (authenticator.authenticateUser(userId) == true) {
     return responseTemplate.userRegistrationFail("이미 등록된 사용자입니다.");
   } else {
     const mail_success = await authenticator.sendAuthenticateMail(userId, school_mail);
     if (mail_success == true) {
-      const result = await database.registNewUser(userId, nickname, school_name, school_mail, timetable);
+      const result = await database.registNewUser(userId, nickname, school_name, school_mail);
       if (result.success == true) {
         return responseTemplate.userRegistrationSuccess(nickname);
       } else {
