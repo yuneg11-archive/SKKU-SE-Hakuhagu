@@ -27,5 +27,6 @@ module.exports = {
   userWithdrawWarning: userResponse.userWithdrawWarning,
   userWithdrawOk: userResponse.userWithdrawOk,
   userWithdrawCancel: userResponse.userWithdrawCancel,
-  userReport: userResponse.userReport
+  userReport: userResponse.userReport,
+  userContract: userResponse.userContract
 };

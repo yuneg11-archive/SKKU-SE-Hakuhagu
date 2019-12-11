@@ -103,6 +103,17 @@ const report = async (event) => {
   }
 };
 
+const contract = async (event) => {
+  const userId = parser.getUserId(event);
+
+  const contracts = await database.getTransaction(userId);
+  if (contracts == null) {
+    return responseTemplate.processFail("거래 기록 조회 실패", "거래 기록 조회에 실패하였습니다.");
+  } else {
+    return responseTemplate.userContract(contracts, userId);
+  }
+};
+
 module.exports = {
   registration,
   authentication,
@@ -110,5 +121,6 @@ module.exports = {
   openprofile,
   withdrawWarning,
   withdraw,
-  report
+  report,
+  contract
 };

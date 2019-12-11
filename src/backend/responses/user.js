@@ -92,3 +92,16 @@ module.exports.userReport = (user_name) => {
   const textCard = builder.getSimpleText(user_name + "(을)를 신고했습니다.");
   return builder.buildResponse([textCard]);
 };
+
+module.exports.userContract = (contracts, userId) => {
+  var text = "총 거래 수: " + contracts.length + "건";
+  for (var key in contracts) {
+    const contract = contracts[key];
+    if (contract.sell_id == userId) {
+      text += "\n판매 - " + contract.item_name;
+    } else if (contract.buy_id == userId) {
+      text += "\n구매 - " + contract.item_name;
+    }
+  }
+  return builder.buildResponse([builder.getSimpleText(text)]);
+};

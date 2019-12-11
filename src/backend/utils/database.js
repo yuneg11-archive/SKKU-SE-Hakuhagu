@@ -193,7 +193,7 @@ const registNewItem = async (userId, item_category, item_name, item_price, item_
 };
 
 const getItem = async (itemId) => {
-  var sql = 'SELECT user.openprofile, user.nickname, item.* FROM item INNER JOIN user ON item.userId = user.userId WHERE itemId = ?';
+  var sql = 'SELECT user.openprofile, user.reliability_score, user.nickname, item.* FROM item INNER JOIN user ON item.userId = user.userId WHERE itemId = ?';
   try{
     const pickitem = await query(sql, [itemId]);
     return {
@@ -206,7 +206,8 @@ const getItem = async (itemId) => {
       item_price: pickitem[0].item_price,
       item_detail: pickitem[0].item_detail,
       item_image: JSON.parse(pickitem[0].item_image),
-      item_date: pickitem[0].item_date
+      item_date: pickitem[0].item_date.toISOString().split("T")[0],
+      reliability_score: pickitem[0].reliability_score
       };
   }catch(error){
     return null;
@@ -228,7 +229,8 @@ const getUserItem = async (userId) => {
         item_price: usersitem[i].item_price,
         item_detail: usersitem[i].item_detail,
         item_image: JSON.parse(usersitem[i].item_image),
-        item_date: usersitem[i].item_date
+        item_date: usersitem[i].item_date.toISOString().split("T")[0],
+        reliability_score: usersitem[i].reliability_score
       };
       results.push(res);
     }
@@ -301,7 +303,7 @@ const downReliability = async(userId) => {
 
 const getCategory = async (category) => {
   const results = [];
-  var sql = 'SELECT user.nickname, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.category = ?';
+  var sql = 'SELECT user.nickname, user.reliability_score, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.category = ?';
   var params = [category];
   try{
     const searchitem = await query(sql, params);
@@ -316,7 +318,8 @@ const getCategory = async (category) => {
         item_price: searchitem[i].item_price,
         item_detail: searchitem[i].item_detail,
         item_image: JSON.parse(searchitem[i].item_image),
-        item_date: searchitem[i].item_date // Please convert to some date type
+        item_date: searchitem[i].item_date.toISOString().split("T")[0],
+        reliability_score: searchitem[i].reliability_score
       };
       results.push(res);
     }
@@ -329,7 +332,7 @@ const getCategory = async (category) => {
 const getKeyword = async (text) => {
   const results = [];
   var keyword = '%' + text + '%';
-  var sql = 'SELECT user.nickname, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.item_name LIKE ? OR item.item_detail LIKE ?';
+  var sql = 'SELECT user.nickname, user.reliability_score, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.item_name LIKE ? OR item.item_detail LIKE ?';
   var params = [keyword, keyword];
   try{
     const searchitem = await query(sql, params);
@@ -344,7 +347,8 @@ const getKeyword = async (text) => {
         item_price: searchitem[i].item_price,
         item_detail: searchitem[i].item_detail,
         item_image: JSON.parse(searchitem[i].item_image),
-        item_date: searchitem[i].item_date // Please convert to some date type
+        item_date: searchitem[i].item_date.toISOString().split("T")[0],
+        reliability_score: searchitem[i].reliability_score
       };
       results.push(res);
     }

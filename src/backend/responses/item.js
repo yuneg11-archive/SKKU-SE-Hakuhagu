@@ -77,24 +77,30 @@ module.exports.itemListFail = (errorMessage) => {
 
 module.exports.itemDetail = (item, mode="list") => {
   // Construct registration guide
-  const resultThumbnail = builder.getThumbnail(item.item_image[0], true, 500, 300);
-  const resultTitle = item.item_name + "(" + item.item_price + "원)";
-  const resultDescription = item.item_detail + "\n"+ item.item_date;
+  const bodys = []
+  const resultTitle = item.item_name;
+  const resultDescription = "가격: " + item.item_price + "원" + "\n"
+                          + "설명: " + item.item_detail + "\n"
+                          + "등록일: " + item.item_date + "\n"
+                          + "판매자: " + item.nickname + "\n"
+                          + "신뢰도: " + item.reliability_score;
   const resultButtons = [];
   if (mode == "list") {
     resultButtons.push(builder.getButton("삭제", "block", "삭제", resource.itemDeleteWarningBlockId, {itemId: item.itemId, item_image: item.item_image[0]}));
   } else if (mode == "search") {
-    console.log(item.openprofile);
     if(item.openprofile) {
       resultButtons.push(builder.getButton("판매자 연결", "webLink", item.openprofile));
     }
     resultButtons.push(builder.getButton("신고", "block", "신고", resource.userReportBlockId, {targetUserId: item.userId, targetNickname: item.nickname}));
   }
-  const resultCard1 = builder.getBasicCardBody(resultTitle, resultDescription, "", resultButtons);
-  const resultCard2 = builder.getBasicCardBody("", "", resultThumbnail);
+  bodys.push(builder.getBasicCardBody(resultTitle, resultDescription, "", resultButtons));
+
+  for (var key in item.item_image) {
+    bodys.push(builder.getBasicCardBody("", "", builder.getThumbnail(item.item_image[key], true, 500, 300)));
+  }
 
   // Build response
-  return builder.buildResponse([builder.getCarousel("basicCard", [resultCard1, resultCard2])]);
+  return builder.buildResponse([builder.getCarousel("basicCard", bodys)]);
 };
 
 module.exports.itemSellerContractSuccess = (qrcodePath, itemId) => {

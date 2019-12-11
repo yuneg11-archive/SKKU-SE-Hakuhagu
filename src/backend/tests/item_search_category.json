@@ -40,13 +40,13 @@
     "name": "스킬 테스트",
     "clientExtra": {},
     "params": {
-      "item_category": "의류"
+      "item_category": "전자기기"
     },
     "id": "5dda19bf8192ac00011a2918",
     "detailParams": {
       "item_category": {
-        "origin": "의류",
-        "value": "의류",
+        "origin": "전자기기",
+        "value": "전자기기",
         "groupName": ""
       }
     }
