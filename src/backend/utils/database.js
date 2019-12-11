@@ -86,28 +86,14 @@ const checkUserAuth = async (userId) => {
     return null;
   } else {
     if (user[0].school_mail_auth == 1) {
-      return {
-      userId: user[0].userId,
-      nickname: user[0].nickname,
-      school_name: user[0].school_name,
-      school_mail: user[0].school_mail,
-      school_mail_auth: user[0].school_mail_auth,
-      openprofile: user[0].openprofile,
-      report_count: user[0].report_count,
-      reliability_score: user[0].reliability_score
-    };
+      return user[0];
     } else {
       return null;
     }
   }
 };
 
-// Placeholder
 const registPendingAuthentication = async (userId, token) => {
-  // userId: string, school_mail: string, token: string
-  // Todo: Create pending mail authentication with scheme { userId: string,
-  //                                                        school_mail: string,
-  //                                                        token: string }
   var sql = 'INSERT INTO authmail(userId, token)VALUES(?,?)';
   var params = [userId, token];
 
@@ -127,9 +113,6 @@ const registPendingAuthentication = async (userId, token) => {
 };
 
 const authPendingAuthentication = async (userId, token) => {
-  // userId: string, token: string
-  // Todo: Delete pending mail authentication with userId and token,
-  //       then change user[userId].school_mail_auth to true
   var sql = 'UPDATE user SET school_mail_auth = 1 WHERE userId = ? and EXISTS (SELECT * FROM authmail WHERE authmail.userId = ?)';
   var params = [userId, userId];
 
@@ -137,8 +120,8 @@ const authPendingAuthentication = async (userId, token) => {
     const update = await query(sql, params);
     console.log(update);
     return {
-      success: true, // success: true, fail: false
-      message: "Fill error message if success == false" // success: "", fail: error message
+      success: true,
+      message: ""
     };
   } catch(error){
     return{
@@ -148,18 +131,8 @@ const authPendingAuthentication = async (userId, token) => {
   }
 };
 
-// Placeholder
 const registNewUser = async (userId, nickname, school_name, school_mail) => {
-  // userId: string, nickname: string, school_name: string, school_mail: string, timetable: JSON object
-  // Todo: Create new user with scheme { userId: string,
-  //                                     nickname: string,
-  //                                     school_name: string,
-  //                                     school_mail: string,
-  //                                     school_mail_auth: bool (false at init),
-  //                                     openprofile: string (Null at init),
-  //                                     report_count: integer (0 at init),
-  //                                     reliability_score: integer (0 at init) }
-  var sql = 'INSERT INTO user(userId,nickname, school_name, school_mail, school_mail_auth, openprofile, report_count, reliability_score)VALUES(?,?,?,?,?,?,?,?,?)';
+  var sql = 'INSERT INTO user(userId,nickname, school_name, school_mail, school_mail_auth, openprofile, report_count, reliability_score)VALUES(?,?,?,?,?,?,?,?)';
   var params = [userId, nickname, school_name, school_mail, '0', null, 0, 50];
 
   try {
@@ -180,7 +153,7 @@ const registNewUser = async (userId, nickname, school_name, school_mail) => {
 // Placeholder
 const getUser = async (userId) => {
   var sql = 'SELECT * FROM user WHERE userId = ?';
-  try{
+  try {
     const pickuser = await query(sql, [userId]);
     console.log(pickuser);
     return {
@@ -193,35 +166,17 @@ const getUser = async (userId) => {
       report_count: pickuser[0].report_count,
       reliability_score: pickuser[0].reliability_score
     };
-  }catch(error){
+  } catch (error) {
     return null;
   }
-  // userId: string
-  // Todo: Get user data of userId { userId: string,
-  //       in JSON object            nickname: string,
-  //                                 school_name: string,
-  //                                 school_mail: string,
-  //                                 school_mail_auth: bool,
-  //                                 openprofile: string,
-  //                                 report_count: integer,
-  //                                 reliability_score: integer }
 };
 
-// Placeholder
 const registNewItem = async (userId, item_category, item_name, item_price, item_detail, item_image) => {
   const itemId = await generateToken();
   const imageurls = JSON.stringify(await uploadImages(itemId + '/', item_image));
   var sql = 'INSERT INTO item(userId, category, itemId, item_name, item_price, item_detail, item_image, item_date)VALUES(?,?,?,?,?,?,?,?)';
   var params = [userId, item_category, itemId, item_name, item_price, item_detail, imageurls, new Date().toISOString().slice(0, 19).replace('T', ' ')];
   console.log(Date.now());
-  // userId: string, item_name: string, item_price: number, item_detail: string, item_image: JSON array
-  // Todo: Create new item with scheme { userId: string,
-  //                                     itemId: number (auto increment),
-  //                                     item_name: string,
-  //                                     item_price: number,
-  //                                     item_detail: string,
-  //                          caution -> item_image: stringfied JSON (use JSON.stringfy()),
-  //                                     item_date: date (auto fill) }
   try {
     const insert = await query(sql, params);
     console.log(insert);
@@ -238,16 +193,7 @@ const registNewItem = async (userId, item_category, item_name, item_price, item_
   }
 };
 
-// Placeholder
 const getItem = async (itemId) => {
-  // itemId: string
-  // Todo: Get item data of itemId { userId: string,
-  //            in JSON object       itemId: number,
-  //                                 item_name: string,
-  //                                 item_price: number,
-  //                                 item_detail: string,
-  //                      caution -> item_image: JSON (use JSON.parse()),
-  //                                 item_date: date }
   var sql = 'SELECT user.nickname, item.* FROM item INNER JOIN user ON item.userId = user.userId WHERE itemId = ?';
   try{
     const pickitem = await query(sql, [itemId]);
@@ -260,7 +206,7 @@ const getItem = async (itemId) => {
       item_price: pickitem[0].item_price,
       item_detail: pickitem[0].item_detail,
       item_image: JSON.parse(pickitem[0].item_image),
-      item_date: pickitem[0].item_date // Please convert to some date type
+      item_date: pickitem[0].item_date
       };
   }catch(error){
     return null;
@@ -282,7 +228,7 @@ const getUserItem = async (userId) => {
         item_price: usersitem[i].item_price,
         item_detail: usersitem[i].item_detail,
         item_image: JSON.parse(usersitem[i].item_image),
-        item_date: usersitem[i].item_date // Please convert to some date type
+        item_date: usersitem[i].item_date
       };
       results.push(res);
     }
@@ -555,6 +501,5 @@ module.exports = {
   registNewDeal,
   deleteItem,
   deleteUser,
-  getDeal,
   getTransaction
 }

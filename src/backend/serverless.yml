@@ -85,6 +85,18 @@ functions:
       - http:
           path: item/delete/warning
           method: post
+  itemDelete:
+    handler: handler.itemDelete
+    events:
+      - http:
+          path: item/delete
+          method: post
+  userOpenprofile:
+    handler: handler.userOpenprofile
+    events:
+      - http:
+          path: user/openprofile
+          method: post
   test:
     handler: handler.test
     events:

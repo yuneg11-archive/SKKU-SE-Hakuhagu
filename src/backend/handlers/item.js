@@ -125,8 +125,29 @@ const buyerContract = async (event) => {
 };
 
 const deleteWarning = async (event) => {
-  const userId = parser.getUserId(event);
-  return responseTemplate.processFail("상품 구매 실패", "상품 구매 등록에 실패했습니다.");
+  const extras = parser.getExtras(event);
+  const itemId = extras["itemId"];
+  const item_image = extras["item_image"];
+
+  return responseTemplate.itemDeleteWarning(itemId, item_image);
+};
+
+// Todo
+const deleteOk = async (event) => {
+  const extras = parser.getExtras(event);
+  const itemId = extras["itemId"];
+  const action = extras["action"];
+
+  if (action == "ok") {
+    const result = await database.deleteItem(itemId);
+    if (result.success == true) {
+      return responseTemplate.itemDeleteOk();
+    } else {
+      return responseTemplate.processFail("상품 삭제 실패", "상품 삭제에 실패했습니다.");
+    }
+  } else {
+    return responseTemplate.itemDeleteCancel();
+  }
 };
 
 module.exports = {
@@ -137,5 +158,6 @@ module.exports = {
   detail,
   sellerContract,
   buyerContract,
-  deleteWarning
+  deleteWarning,
+  deleteOk
 };

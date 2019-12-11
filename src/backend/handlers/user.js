@@ -56,8 +56,22 @@ const information = async (event) => {
   }
 };
 
+// Todo
+const openprofile = async (event) => {
+  const userId = parser.getUserId(event);
+
+  const user = await database.getUser(userId);
+  if (user == null) {
+    return responseTemplate.userRegistration();
+  } else {
+    const openprofile = (user.openprofile == null ? "-" : user.openprofile);
+    return responseTemplate.userInformation(user.nickname, user.school_name, user.school_mail, openprofile, user.reliability_score);
+  }
+};
+
 module.exports = {
   registration,
   authentication,
-  information
+  information,
+  openprofile
 };
