@@ -329,6 +329,24 @@ const setReportcount = async (userId) => {
   }
 };
 
+const downReliability = async(userId) => {
+  var sql = 'UPDATE user SET reliability_score = reliability_score -30 WHERE userId = ?';
+  var params = [userId];
+  try {
+    const update = await query(sql, params);
+    console.log(update);
+    return {
+      success: true,
+      message: ""
+    };
+  }catch(err){
+    return{
+      success: false,
+      message:"fail"
+    };
+  }
+};
+
 const getCategory = async (category) => {
   const results = [];
   var sql = 'SELECT user.nickname, user.openprofile, item.* FROM user INNER JOIN item ON user.userId = item.userId WHERE item.category = ?';
@@ -410,6 +428,8 @@ const registNewDeal = async(sell_id, buy_id, itemId, item_name) => {
     const insert = await query(sql, params);
     console.log(insert);
     await deleteItem(itemId);
+    await upSellReliability(sell_id);
+    await upBuyReliability(buy_id);
     return {
       success: true,
       message: ""
@@ -422,7 +442,42 @@ const registNewDeal = async(sell_id, buy_id, itemId, item_name) => {
     };
   }
 };
-
+const upSellReliability = async(sell_id) => {
+  var sql = 'UPDATE user SET reliability_score = reliability_score + 5 WHERE userId = ?';
+  var params = [sell_id];
+  try {
+    const update = await query(sql, params);
+    console.log(update);
+    return {
+      success: true,
+      message:""
+    };
+  }catch(err){
+    console.log(err);
+    return{
+      success:false,
+      message:"update fail"
+    };
+  }
+};
+const upBuyReliability = async(buy_id) => {
+  var sql = 'UPDATE user SET reliability_score = reliability_score + 3 WHERE userId = ?';
+  var params = [buy_id];
+  try {
+    const update = await query(sql, params);
+    console.log(update);
+    return {
+      success: true,
+      message:""
+    };
+  }catch(err){
+    console.log(err);
+    return{
+      success:false,
+      message:"update fail"
+    };
+  }
+};
 const deleteItem = async(itemId) => {
   var sql = 'DELETE FROM item WHERE itemId = ?';
   var params = [itemId];
@@ -461,6 +516,29 @@ const deleteUser = async(userId) => {
   }
 };
 
+const getTransaction = async(userId) => {
+  const results = [];
+  var sql = 'SELECT * FROM deal_list WHERE sell_id = ? or buy_id = ?';
+  var params = [userId, userId];
+  try{
+    const getDeal = await query(sql, params);
+    for (var i = 0; i<getDeal.length; i++){
+      console.log(getDeal[i]);
+      var res = {
+        deal_num: getDeal[i].deal_num,
+        sell_id : getDeal[i].sell_id,
+        buy_id: getDeal[i].buy_id,
+        item_name: getDeal[i].item_name
+      };
+      results.push(res);
+    }
+    return results;
+  }catch(error){
+    console.log(error);
+    return null;
+  }
+};
+
 module.exports = {
   uploadImages,
   checkUserAuth,
@@ -475,5 +553,7 @@ module.exports = {
   getKeyword,
   registTempDeal,
   registNewDeal,
-  deleteItem
+  deleteItem,
+  deleteUser,
+  getDeal
 }
