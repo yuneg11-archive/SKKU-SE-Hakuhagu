@@ -264,7 +264,7 @@ const reportUser = async (userId) => {
    try {
     const update = await query(sql, params);
      const getReportCount = await query(sql2, params);
-     const report_count = getReportCount[0];
+     const report_count = getReportCount[0].report_count;
      if (report_count % 3 == 0){
        await downReliability(userId);
      }
