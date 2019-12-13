@@ -17,16 +17,6 @@ const getAuthFailResponse = () => {
   return responseTemplate.userRegistration();
 }
 
-// Verification
-
-module.exports.verifyNickName = async (event) => {
-  // Todo
-}
-
-module.exports.verifyEmail = async (event) => {
-  // Todo
-}
-
 // Skill
 
 module.exports.welcome = async (event) => {

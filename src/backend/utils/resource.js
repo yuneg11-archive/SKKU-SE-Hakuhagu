@@ -2,8 +2,8 @@
 
 module.exports = {
     mailAuthenticateEndpoint: "https://hk8fwoi2r9.execute-api.ap-northeast-1.amazonaws.com/dev/user/authentication",
-    awsS3Region: "us-west-1",
-    awsS3Name: "hakuhagu",
+    awsS3Region: "ap-northeast-2",//"us-west-1",
+    awsS3Name: "hakuhagu-seoul",//"hakuhagu",
     mysqlLocation: "hakuhagu.czjhg6jtbyze.ap-northeast-1.rds.amazonaws.com",
     mysqlName: "hakuhagu",
 

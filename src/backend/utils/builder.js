@@ -64,12 +64,15 @@ const getButton = (label, action, data, blockId=undefined, extra=undefined) => {
   }
 }
 
-const getThumbnail = (imageUrl, fixedRatio=false, width=100, height=100) => {
+const getThumbnail = (imageUrl, fixedRatio=false, width=100, height=100, link="") => {
   return {
     imageUrl: imageUrl,
     fixedRatio: fixedRatio,
     width: width,
-    height: height
+    height: height,
+    link: {
+      web: link
+    }
   };
 }
 

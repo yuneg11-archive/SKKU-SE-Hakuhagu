@@ -5,7 +5,7 @@ const resource = require("../utils/resource");
 
 module.exports.itemRegistrationSuccess = (itemName, itemDetail, itemPrice, imageUrl) => {
   // Construct registration guide
-  const resultThumbnail = builder.getThumbnail(imageUrl, true, 500, 300);
+  const resultThumbnail = builder.getThumbnail(imageUrl, true, 500, 500);
   const resultTitle = itemName;
   const resultDescription = itemDetail;
   const resultPrice = itemPrice;
@@ -39,7 +39,7 @@ module.exports.itemListSuccess = (itemList, mode="search") => {
       const item = itemList[key];
       const resultUserId = (item.userId != undefined ? item.userId : null);
       const resultItemId = item.itemId;
-      const resultThumbnail = builder.getThumbnail(item.item_image[0], true, 500, 300);
+      const resultThumbnail = builder.getThumbnail(item.item_image[0], true, 500, 500, item.item_image[0]);
       const resultTitle = item.item_name;
       const resultDescription = item.item_detail + "\n" + item.item_date;
       const resultPrice = item.item_price;
@@ -97,7 +97,7 @@ module.exports.itemDetail = (item, mode="list") => {
   bodys.push(builder.getBasicCardBody(resultTitle, resultDescription, "", resultButtons));
 
   for (var key in item.item_image) {
-    bodys.push(builder.getBasicCardBody("", "", builder.getThumbnail(item.item_image[key], true, 500, 300)));
+    bodys.push(builder.getBasicCardBody("", "", builder.getThumbnail(item.item_image[key], true, 500, 500, item.item_image[key])));
   }
 
   // Build response
@@ -112,7 +112,7 @@ module.exports.itemSellerContractSuccess = (qrcodePath, itemId) => {
 };
 
 module.exports.itemBuyerContractSuccess = (item) => {
-  const resultThumbnail = builder.getThumbnail(item.item_image[0], true, 500, 300);
+  const resultThumbnail = builder.getThumbnail(item.item_image[0], true, 500, 500, item.item_image[0]);
   const resultTitle = item.item_name;
   const resultDescription = item.item_detail + "\n" + item.item_date;
   const resultPrice = item.item_price;
@@ -123,7 +123,7 @@ module.exports.itemBuyerContractSuccess = (item) => {
 };
 
 module.exports.itemDeleteWarning = (itemId, item_image) => {
-  const resultThumbnail = builder.getThumbnail(item_image, true, 500, 300);
+  const resultThumbnail = builder.getThumbnail(item_image, true, 500, 500, item_image);
   const okButton = builder.getButton("확인", "block", "확인", resource.itemDeleteBlockId, {itemId: itemId, action: "ok"});
   const cancelButton = builder.getButton("취소", "block", "취소", resource.itemDeleteBlockId, {itemId: itemId, action: "cancel"});
   const basicCard = builder.getBasicCard("정말 해당 상품을 삭제하시겠습니까?", "", resultThumbnail, [okButton, cancelButton]);
